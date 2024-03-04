@@ -5,7 +5,7 @@ public class Array {
     private int TL;
 
     public Array() {
-        this.array = new int[1000];
+        this.array = new int[100];
         this.TL = 0;
     }
 
@@ -146,6 +146,36 @@ public class Array {
             }
             start++;
         }
+    }
+
+    public void counting_sort(){
+        //find the major
+        int major = 0, pos;
+        for(int i=0; i<TL; i++){
+            if(array[i] > major){
+                major = array[i];
+            }
+        }
+        int [] B = new int[major], C = new int[major];
+
+        //count
+        for(int i=0; i<TL; i++){
+            B[array[i] - 1] += 1;
+        }
+
+        //cumulative
+        for(int i=1; i<TL; i++){
+            B[i] = B[i] + B[i-1];
+        }
+
+        for(int i=TL-1; i >= 0; i--){
+            pos = B[array[i]-1];
+            B[array[i-1]] -= 1;
+            C[pos] = array[i];
+        }
+
+        array = C;
+
     }
 
 
