@@ -4,7 +4,7 @@ public class Array {
     private int[] array;
     private int TL;
 
-    public void constructor() {
+    public Array() {
         this.array = new int[1000];
         this.TL = 0;
     }
@@ -12,6 +12,12 @@ public class Array {
     public void add(int element) {
         this.array[TL] = element;
         this.TL += 1;
+    }
+
+    public void print(){
+        for(int i =0; i<TL; i++){
+            System.out.println(array[i]);
+        }
     }
 
     public int exhaustive_search(int element) {
@@ -79,6 +85,68 @@ public class Array {
         }
     }
 
+    public void selection_sort(){
+        int pos = 0, i, minor;
+        while (pos < TL - 1) {
+            i = pos + 1;
+            minor = pos;
+            while (i < TL) {
+                if(array[i] < array[minor]){
+                    minor = i;
+                }
+                i++;
+            }
+            array[minor] = array[pos];
+            array[pos] = array[minor];
+            pos ++;
+        }
+    }
+
+    public void bubble_sort(){
+        int aux, TL = this.TL;
+        boolean change = true;
+        while(TL > 0 && change) {
+            change = false;
+            for (int i = 0; i < TL -1; i++) {
+                if (array[i] > array[i+1]){
+                    change = true;
+                    aux = array[i];
+                    array[i] = array[i + 1];
+                    array[i+1] = aux;
+                }
+            }
+            TL--;
+        }
+    }
+
+    public void shake_sort(){
+        int aux, start = 0, end = TL - 1;
+        boolean change = true;
+        while(start < end && change) {
+            change = false;
+            for (int i = start; i < end; i ++){
+                if(array[i] > array[i + 1]){
+                    aux = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = aux;
+                    change = true;
+                }
+            }
+            end--;
+            if(change){
+                change = false;
+                for(int j=end; j>start; j--){
+                    if(array[j] < array[j-1]){
+                        aux = array[j];
+                        array[j] = array[j-1];
+                        array[j-1] = aux;
+                        change = true;
+                    }
+                }
+            }
+            start++;
+        }
+    }
 
 
 }

@@ -130,6 +130,19 @@ public class List {
         return middle;
     }
 
+    public void binary_insertion_sort(){
+        Node pos = start, sub, aux;
+        while (pos != null){
+            sub = binary_search_to_insertion(pos.getInfo());
+            aux = pos;
+            pos.getPrev().setNext(pos.getNext());
+            pos.getNext().setPrev(pos.getPrev());
+            sub.getNext().setPrev(aux);
+            sub.getPrev().setNext(aux);
+            pos = pos.getNext();
+        }
+    }
+
     public void insertion_sort(){
         int auxInfo;
         Node pos = start;
@@ -143,6 +156,79 @@ public class List {
             }
             pos = aux;
             aux = aux.getNext();
+        }
+    }
+
+    public void selection_sort(){
+        Node pos = start, minor, i;
+        int aux;
+        while (pos.getNext() != null){
+            i = pos.getNext();
+            minor = pos;
+            while (i != null) {
+                if (i.getInfo() < minor.getInfo()){
+                    minor = i;
+                }
+                i = i.getNext();
+            }
+            aux = minor.getInfo();
+            minor.setInfo(pos.getInfo());
+            pos.setInfo(aux);
+            pos = pos.getNext();
+        }
+    }
+
+    public void bubble_sort(){
+        Node end = this.end, aux = start;
+        int auxInfo;
+        boolean change = true;
+        while(end != start && change){
+            change = false;
+            while(aux != end){
+                if(aux.getInfo() > aux.getNext().getInfo()){
+                    auxInfo = aux.getInfo();
+                    aux.setInfo(aux.getNext().getInfo());
+                    aux.getNext().setInfo(auxInfo);
+                    change = true;
+                }
+                aux = aux.getNext();
+            }
+            aux = start;
+            end = end.getPrev();
+        }
+    }
+
+    public void shake_sort(){
+        Node start = this.start, end = this.end, aux;
+        int auxInfo;
+        boolean change = true;
+        while (start != end && change){
+            change = false;
+            aux = start;
+            while(aux != end){
+                if(aux.getInfo() > aux.getNext().getInfo()){
+                    auxInfo = aux.getNext().getInfo();
+                    aux.getNext().setInfo(aux.getInfo());
+                    aux.setInfo(auxInfo);
+                    change = true;
+                }
+                aux = aux.getNext();
+            }
+            end = end.getPrev();
+            if(change){
+                change = false;
+                aux = end;
+                while(aux != start){
+                    if(aux.getInfo() < aux.getPrev().getInfo()){
+                        auxInfo = aux.getPrev().getInfo();
+                        aux.getPrev().setInfo(aux.getInfo());
+                        aux.setInfo(auxInfo);
+                        change = true;
+                    }
+                    aux = aux.getPrev();
+                }
+                start = start.getNext();
+            }
         }
     }
 
