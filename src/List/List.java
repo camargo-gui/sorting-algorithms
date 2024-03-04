@@ -113,8 +113,8 @@ public class List {
         return aux;
     }
 
-    public Node binary_search_to_insertion(int info){
-        Node start = this.start, end = this.end, middle = middle_calculate(start, end);
+    public Node binary_search_to_insertion(int info, Node end){
+        Node start = this.start, middle = middle_calculate(start, end);
         while(start.getInfo() < end.getInfo() && info != middle.getInfo()){
             if (info > middle.getInfo()){
                 start = middle.getNext();
@@ -133,7 +133,7 @@ public class List {
     public void binary_insertion_sort(){
         Node pos = start, sub, aux;
         while (pos != null){
-            sub = binary_search_to_insertion(pos.getInfo());
+            sub = binary_search_to_insertion(pos.getInfo(), pos);
             aux = pos;
             pos.getPrev().setNext(pos.getNext());
             pos.getNext().setPrev(pos.getPrev());
