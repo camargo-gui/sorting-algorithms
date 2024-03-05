@@ -171,7 +171,7 @@ public class Array {
         for(int i=TL-1; i >= 0; i--){
             pos = B[array[i]-1];
             B[array[i-1]] -= 1;
-            C[pos] = array[i];
+            C[pos - 1] = array[i];
         }
 
         array = C;
