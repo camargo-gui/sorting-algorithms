@@ -36,8 +36,8 @@ public class SortingTests {
     public void FileTest(){
         File file = new File("Teste.dat");
         file.seekFile(0);
-        file.insertAtEnd(new Record(9, "Teste", 20));
         file.insertAtEnd(new Record(12, "Teste2", 21));
+        file.insertAtEnd(new Record(9, "Teste", 20));
         file.insertAtEnd(new Record(15, "Teste3", 22));
         file.insertAtEnd(new Record(1, "Teste4", 23));
         file.insertAtEnd(new Record(3, "Teste5", 24));
@@ -49,7 +49,10 @@ public class SortingTests {
         file.insertAtEnd(new Record(2, "Teste11", 30));
         file.insertAtEnd(new Record(10, "Teste12", 31));
         file.insertAtEnd(new Record(11, "Teste13", 32));
-        file.shake_sort();
+        System.out.println("Gerado: ");
+        file.showFile();
+        System.out.println("Ordenado: ");
+        file.insertion_sort();
         file.showFile();
     }
 }

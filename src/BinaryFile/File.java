@@ -2,6 +2,7 @@ package BinaryFile;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.rmi.registry.Registry;
 
 public class File {
     private String fileName;
@@ -88,20 +89,23 @@ public class File {
     // fazer com busca binária
     public void insertion_sort(){
         Record rec1 = new Record(), rec2 = new Record();
-        int i = 0, j, aux, tam = filesize();
+        boolean change;
+        int i = 1, j, tam = filesize();
         while(i < tam){
-            j = i + 1;
-            seekFile(i);
-            rec1.read(file);
-            rec2.read(file);
-            while(j > 0 && rec2.getcod() < rec1.getcod()){
-                seekFile(j-1);
-                rec2.write(file);
-                rec1.write(file);
-                j--;
+            change = true;
+            j = i;
+            while(j > 0 && change){
+                change = false;
                 seekFile(j-1);
                 rec1.read(file);
                 rec2.read(file);
+                if(rec1.getcod() > rec2.getcod()){
+                    seekFile(j-1);
+                    rec2.write(file);
+                    rec1.write(file);
+                    change = true;
+                }
+                j--;
             }
             i ++;
         }
@@ -156,14 +160,13 @@ public class File {
     }
 
 
-    // Por que precisa ser pos <= ??
     public void shake_sort(){
         Record rec1 = new Record(), rec2 = new Record();
         int start = 0, end = filesize() - 1, pos;
         boolean change = true;
         while(start < end && change){
             change = false;
-            for(pos = start; pos < end; pos++){
+            for(pos = start; pos <= end; pos++){
                 seekFile(pos);
                 rec1.read(file);
                 rec2.read(file);
@@ -191,7 +194,47 @@ public class File {
             }
             start++;
         }
+    }
 
+    public void couting_sort(){
+        int major = 0, tam = filesize(), pos;
+        File aux = new File("aux.dat");
+        Record rec = new Record();
+        seekFile(0);
+        while(!eof()){
+            rec.read(file);
+            if(rec.getcod() > major){
+                major = rec.getcod();
+            }
+        }
+
+        int []  B = new int[major];
+
+        seekFile(0);
+        while(!eof()){
+            rec.read(file);
+            B[rec.getcod() - 1] += 1;
+        }
+
+        for(int i=1; i<major; i++){
+            B[i] += B[i-1];
+        }
+
+        for(int i = tam; i>=0; i--){
+            seekFile(i);
+            rec.read(file);
+            pos = B[rec.getcod() - 1];
+            B[rec.getcod() - 1] -= 1;
+            aux.seekFile(pos-1);
+            rec.write(aux.file);
+        }
+
+        for(int i = 0; i < filesize(); i++){
+            aux.seekFile(i);
+            seekFile(i);
+            rec.read(aux.file);
+            rec.write(file);
+        }
     }
 
 }
