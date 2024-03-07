@@ -148,6 +148,14 @@ public class Array {
         }
     }
 
+    public int getDigit(int number, int index){
+        if(index < 0 || number == 0){
+            return 0;
+        }
+        int divider = (int) Math.pow(number, index);
+        return (number/divider)%10;
+    }
+
     public void counting_sort(){
         //find the major
         int major = 0, pos;
@@ -156,27 +164,62 @@ public class Array {
                 major = array[i];
             }
         }
-        int [] B = new int[major], C = new int[major];
+        int [] B = new int[major + 1], C = new int[major + 1];
 
         //count
         for(int i=0; i<TL; i++){
-            B[array[i] - 1] += 1;
+            B[array[i]] += 1;
         }
 
         //cumulative
-        for(int i=1; i<TL; i++){
+        for(int i=1; i<=major; i++){
             B[i] = B[i] + B[i-1];
         }
 
         for(int i=TL-1; i >= 0; i--){
-            pos = B[array[i]-1];
-            B[array[i-1]] -= 1;
-            C[pos - 1] = array[i];
+            pos = B[array[i]];
+            B[array[i]] -= 1;
+            C[pos] = array[i];
+        }
+        array = C;
+    }
+
+    //arrumar <----------------------
+    public void counting_sort(int radix){
+        int major = 0, pos, digit;
+        for(int i=0; i<TL; i++){
+            digit = getDigit(array[i], radix);
+            if(digit > major){
+                major = digit;
+            }
+        }
+        int [] B = new int[major + 1], C = new int[TL];
+
+        //count
+        for(int i=0; i<=major; i++){
+            B[getDigit(array[i], radix)] += 1;
         }
 
-        array = C;
+        //cumulative
+        for(int i=1; i<=major; i++){
+            B[i] = B[i] + B[i-1];
+        }
 
+        for(int i=TL-1; i >= 0; i--){
+            digit = getDigit(array[i], radix);
+            pos = B[digit];
+            B[digit]-= 1;
+            C[pos] = array[i];
+        }
+        array = C;
     }
+
+    public void radix_sort(int maxLenght){
+        for(int i = 0; i<maxLenght; i++){
+            counting_sort(i);
+        }
+    }
+
 
 
 }

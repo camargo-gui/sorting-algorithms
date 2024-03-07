@@ -23,13 +23,13 @@ public class SortingTests {
 
     public void ArrayTest () {
         Array array = new Array();
-        for (int i = 50; i > 0; i--) {
+        for (int i = 999; i > 50; i = i - 43) {
             array.add(i);
         }
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.shake_sort();
+        array.radix_sort(3);
         array.print();
     }
 
@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.insertion_sort();
+        file.binary_insertion_sort();
         file.showFile();
     }
 }

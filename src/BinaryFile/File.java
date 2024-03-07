@@ -85,8 +85,50 @@ public class File {
         { }
     }
 
+    public int binary_search(int info, int end){
+        Record reg = new Record();
+        int start = 0, half = end/2;
+        seekFile(half);
+        reg.read(file);
+        while(start < end && reg.getcod() != info){
+            if(reg.getcod() > info){
+                start = half + 1;
+            }
+            if(reg.getcod() < info){
+                end = half - 1;
+            }
+            half = (start+end)/2;
+            seekFile(half);
+            reg.read(file);
+        }
+        if(info > reg.getcod()){
+            return half + 1;
+        }
+        return half;
+    }
 
-    // fazer com busca binária
+    public void binary_insertion_sort(){
+        Record rec1 = new Record(), rec2 = new Record();
+        int i = 1, tam = filesize(), j, pos;
+        while(i < tam){
+            seekFile(i);
+            rec1.read(file);
+            pos = binary_search(rec1.getcod(), i - 1);
+            j = i;
+            while(j > pos){
+                seekFile(j-1);
+                rec1.read(file);
+                rec2.read(file);
+                seekFile(j-1);
+                rec2.write(file);
+                rec1.write(file);
+                j--;
+            }
+            i++;
+        }
+    }
+
+
     public void insertion_sort(){
         Record rec1 = new Record(), rec2 = new Record();
         boolean change;
