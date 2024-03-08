@@ -235,30 +235,32 @@ public class List {
     public void counting_sort(){
         //find the major
         int major = 0, pos, j=0;
-        for(Node i = start; i != end; i = i.getNext()){
+        for(Node i = start; i != null; i = i.getNext()){
             if(i.getInfo() > major){
                 major = i.getInfo();
             }
         }
 
-        int [] B = new int[major], C = new int[major];
+        int [] B = new int[major+1], C = new int[length()];
 
         for(Node i = start; i != null; i = i.getNext()){
-            B[i.getInfo() - 1] += 1;
+            B[i.getInfo()] += 1;
         }
 
-        for(int i=1; i<major; i++){
+        for(int i=1; i<=major; i++){
             B[i] += B[i-1];
         }
 
         for(Node i = end; i != start; i = i.getPrev()){
-            pos = B[i.getInfo() - 1];
-            B[i.getInfo()-1] -= 1;
+            pos = B[i.getInfo()];
+            B[i.getInfo()] -= 1;
             C[pos - 1] = i.getInfo();
         }
 
-        for(Node i = start; i!=null; i = i.getNext(), j++){
-            i.setInfo(C[j]);
+        Node aux = start;
+        for(int i = 0; i < length(); i++){
+            aux.setInfo(C[i]);
+            aux = aux.getNext();
         }
     }
 

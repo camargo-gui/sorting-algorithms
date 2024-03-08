@@ -152,7 +152,7 @@ public class Array {
         if(index < 0 || number == 0){
             return 0;
         }
-        int divider = (int) Math.pow(number, index);
+        int divider = (int) Math.pow(10, index);
         return (number/divider)%10;
     }
 
@@ -196,7 +196,7 @@ public class Array {
         int [] B = new int[major + 1], C = new int[TL];
 
         //count
-        for(int i=0; i<=major; i++){
+        for(int i=0; i<TL; i++){
             B[getDigit(array[i], radix)] += 1;
         }
 
@@ -209,7 +209,7 @@ public class Array {
             digit = getDigit(array[i], radix);
             pos = B[digit];
             B[digit]-= 1;
-            C[pos] = array[i];
+            C[pos - 1] = array[i];
         }
         array = C;
     }
