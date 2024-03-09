@@ -16,7 +16,7 @@ public class SortingTests {
         }
         System.out.println("Gerado");
         list.print();
-        list.counting_sort();
+        list.heap_sort();
         System.out.println("Ordenado: ");
         list.print();
     }

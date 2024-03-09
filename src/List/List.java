@@ -104,6 +104,16 @@ public class List {
         return l;
     }
 
+    public Node getByPos(int pos){
+        Node i = start;
+        int currentPos = 0;
+        while(i != null && currentPos < pos){
+            i = i.getNext();
+            currentPos++;
+        }
+        return i;
+    }
+
     public Node middle_calculate(Node start, Node end){
         int middle = Math.floorDiv(length(start, end),2);
         Node aux = start;
@@ -261,6 +271,25 @@ public class List {
         for(int i = 0; i < length(); i++){
             aux.setInfo(C[i]);
             aux = aux.getNext();
+        }
+    }
+    public void heap_sort(){
+        int TL = length(), root, nodeL, nodeR, aux, majorNode;
+        while(TL > 1){
+            for(root = TL/2-1; root >= 0; root--){
+                nodeL = 2 * root + 1;
+                nodeR = nodeL + 1;
+                majorNode = nodeR < TL && getByPos(nodeR).getInfo() > getByPos(nodeL).getInfo() ? nodeR : nodeL;
+                if(getByPos(majorNode).getInfo() > getByPos(root).getInfo()){
+                    aux = getByPos(majorNode).getInfo();
+                    getByPos(majorNode).setInfo(getByPos(root).getInfo());
+                    getByPos(root).setInfo(aux);
+                }
+            }
+            aux = getByPos(0).getInfo();
+            getByPos(0).setInfo(getByPos(TL-1).getInfo());
+            getByPos(TL-1).setInfo(aux);
+            TL--;
         }
     }
 
