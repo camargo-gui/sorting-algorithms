@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.selection_sort();
+        file.heap_sort();
         file.showFile();
     }
 }

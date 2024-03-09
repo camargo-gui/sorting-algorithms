@@ -279,4 +279,46 @@ public class File {
         }
     }
 
+    public void heap_sort(){
+        int TL = filesize(), root, nodeL, nodeR, majorNode;
+        Record recL = new Record(), recR = new Record(), recRoot = new Record(), majorRec = new Record(), aux = new Record();
+
+        while(TL > 1){
+            for(root = TL/2-1; root >= 0; root--){
+                nodeL = 2 * root + 1;
+                nodeR = nodeL + 1;
+                seekFile(nodeL);
+                recL.read(file);
+                if(nodeR < TL){
+                    seekFile(nodeR);
+                    recR.read(file);
+                    majorNode = recR.getcod() > recL.getcod() ? nodeR : nodeL;
+                }
+                else {
+                    majorNode = nodeL;
+                }
+                seekFile(root);
+                recRoot.read(file);
+                seekFile(majorNode);
+                majorRec.read(file);
+                if(majorRec.getcod() > recRoot.getcod()){
+                    aux = new Record(majorRec);
+                    seekFile(majorNode);
+                    recRoot.write(file);
+                    seekFile(root);
+                    aux.write(file);
+                }
+            }
+            seekFile(0);
+            recRoot.read(file);
+            seekFile(TL-1);
+            aux.read(file);
+            seekFile(0);
+            aux.write(file);
+            seekFile(TL-1);
+            recRoot.write(file);
+            TL--;
+        }
+    }
+
 }
