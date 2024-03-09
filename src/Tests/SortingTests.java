@@ -29,7 +29,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.radix_sort(3);
+        array.heap_sort();
         array.print();
     }
 
@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.binary_insertion_sort();
+        file.selection_sort();
         file.showFile();
     }
 }

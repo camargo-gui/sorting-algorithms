@@ -220,6 +220,27 @@ public class Array {
         }
     }
 
+    public void heap_sort(){
+        int TL = this.TL, root, nodeL, nodeR, majorNode, aux;
+        while(TL > 1){
+            for(root = TL/2-1; root >=0; root--){
+                nodeL =  2*root+1;
+                nodeR = nodeL + 1;
+                majorNode = nodeR < TL && array[nodeR] > array[nodeL] ? nodeR : nodeL;
+                if(array[majorNode] > array[root]){
+                    aux = array[majorNode];
+                    array[majorNode] = array[root];
+                    array[root] = aux;
+                }
+            }
+            aux = array[TL-1];
+            array[TL-1] = array[0];
+            array[0] = aux;
+            TL--;
+        }
+
+    }
+
 
 
 }

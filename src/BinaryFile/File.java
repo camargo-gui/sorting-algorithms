@@ -250,7 +250,7 @@ public class File {
             }
         }
 
-        int []  B = new int[major];
+        int []  B = new int[major ];
 
         seekFile(0);
         while(!eof()){

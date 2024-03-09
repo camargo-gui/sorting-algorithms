@@ -22,6 +22,10 @@ public class Record {
         }
 
     public Record(Record rec) {
+            cod = rec.cod;
+            age = rec.age;
+            name = rec.name;
+            tl = rec.name.length;
     }
 
     public int getcod()
