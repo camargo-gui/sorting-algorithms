@@ -1,5 +1,8 @@
 package Array;
 
+import List.Node;
+import List.List;
+
 public class Array {
     private int[] array;
     private int TL;
@@ -240,6 +243,39 @@ public class Array {
         }
 
     }
+
+    public void bucket_sort(){
+        int aux,i, pos;
+        Node N;
+        List[] buckets = new List[10];
+
+        for (i=0; i<10; i++){
+            buckets[i] = new List();
+        }
+
+        for (i=0;i<TL;i++){
+            aux = array[i]/10;
+            buckets[aux].insertAtEnd(array[i]);
+        }
+
+        for (i=0;i<10;i++){
+            if(buckets[i].length() > 0){
+                buckets[i].insertion_sort();
+            }
+        }
+
+        aux = 0;
+        for (i=0; i<10; i++){
+            N = buckets[i].getByPos(0);
+            for(pos = 0; pos < buckets[i].length(); pos++){
+                array[aux] = N.getInfo();
+                aux ++;
+                N = N.getNext();
+            }
+        }
+
+    }
+
 
 
 

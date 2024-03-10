@@ -23,13 +23,13 @@ public class SortingTests {
 
     public void ArrayTest () {
         Array array = new Array();
-        for (int i = 999; i > 50; i = i - 43) {
+        for (int i = 99; i > 10; i = i - 5) {
             array.add(i);
         }
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.heap_sort();
+        array.bucket_sort();
         array.print();
     }
 

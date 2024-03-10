@@ -268,7 +268,7 @@ public class List {
         }
 
         Node aux = start;
-        for(int i = 0; i < length(); i++){
+        for(int i = 0; aux != null && i < length(); i++){
             aux.setInfo(C[i]);
             aux = aux.getNext();
         }
