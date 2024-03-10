@@ -321,4 +321,43 @@ public class File {
         }
     }
 
+    public void bucket_sort(){
+        int n = 10, i, pos;
+        Record rec = new Record();
+        File [] buckets = new File[n];
+
+        for(i=0; i<n; i++){
+            buckets[i] = new File(i+".txt");
+        }
+
+        for(i=0; i<filesize(); i++){
+            seekFile(i);
+            rec.read(file);
+            pos = rec.getcod()/10;
+            buckets[pos].insertAtEnd(rec);
+        }
+
+        for(i=0;i<n;i++){
+            if(buckets[i].file != null){
+                buckets[i].insertion_sort();
+            }
+        }
+
+        pos = 0;
+        for(i=0; i<n; i++){
+            if(buckets[i] != null){
+                buckets[i].seekFile(0);
+                while(!buckets[i].eof()){
+                    rec.read(buckets[i].file);
+                    seekFile(pos);
+                    rec.write(file);
+                    pos++;
+                }
+            }
+        }
+
+
+    }
+
+
 }

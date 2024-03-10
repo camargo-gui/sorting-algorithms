@@ -37,22 +37,22 @@ public class SortingTests {
         File file = new File("Teste.dat");
         file.seekFile(0);
         file.insertAtEnd(new Record(12, "Teste2", 21));
-        file.insertAtEnd(new Record(9, "Teste", 20));
-        file.insertAtEnd(new Record(15, "Teste3", 22));
-        file.insertAtEnd(new Record(1, "Teste4", 23));
-        file.insertAtEnd(new Record(3, "Teste5", 24));
-        file.insertAtEnd(new Record(5, "Teste6", 25));
-        file.insertAtEnd(new Record(7, "Teste7", 26));
-        file.insertAtEnd(new Record(8, "Teste8", 27));
-        file.insertAtEnd(new Record(6, "Teste9", 28));
-        file.insertAtEnd(new Record(4, "Teste10", 29));
-        file.insertAtEnd(new Record(2, "Teste11", 30));
-        file.insertAtEnd(new Record(10, "Teste12", 31));
+        file.insertAtEnd(new Record(98, "Teste", 20));
+        file.insertAtEnd(new Record(25, "Teste3", 22));
+        file.insertAtEnd(new Record(31, "Teste4", 23));
+        file.insertAtEnd(new Record(43, "Teste5", 24));
+        file.insertAtEnd(new Record(75, "Teste6", 25));
+        file.insertAtEnd(new Record(67, "Teste7", 26));
+        file.insertAtEnd(new Record(38, "Teste8", 27));
+        file.insertAtEnd(new Record(66, "Teste9", 28));
+        file.insertAtEnd(new Record(54, "Teste10", 29));
+        file.insertAtEnd(new Record(29, "Teste11", 30));
+        file.insertAtEnd(new Record(13, "Teste12", 31));
         file.insertAtEnd(new Record(11, "Teste13", 32));
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.heap_sort();
+        file.bucket_sort();
         file.showFile();
     }
 }
