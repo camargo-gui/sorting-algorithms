@@ -14,6 +14,10 @@ public class List {
         this.end = end;
     }
 
+    public Node getStart(){
+        return this.start;
+    }
+
     public void initialize() {
         start = null;
         end = null;
@@ -291,6 +295,41 @@ public class List {
             getByPos(TL-1).setInfo(aux);
             TL--;
         }
+    }
+
+    public void bucket_sort(){
+        int n = 10, i, aux;
+        List [] buckets = new List[10];
+        Node node, OLNode;
+        //initialize buckets
+        for(i=0; i<n; i++){
+            buckets[i] = new List();
+        }
+
+        for(node = start; node != null; node = node.getNext()){
+            aux = node.getInfo()/10;
+            buckets[aux].insertAtEnd(node.getInfo());
+        }
+
+        for(i=0; i<n; i++){
+            if(buckets[i].getStart() != null){
+                buckets[i].insertion_sort();
+            }
+        }
+
+        OLNode = start;
+        for(i = 0; i<n; i++){
+            if(buckets[i] != null){
+                node = buckets[i].getStart();
+                while (node!=null){
+                    OLNode.setInfo(node.getInfo());
+                    OLNode = OLNode.getNext();
+                    node = node.getNext();
+                }
+            }
+        }
+
+
     }
 
 }

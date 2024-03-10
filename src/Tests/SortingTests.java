@@ -12,11 +12,11 @@ public class SortingTests {
         List list = new List();
         Random random = new Random();
         for (int i = 50; i > 0; i--) {
-            list.insertAtEnd(random.nextInt(100) + 1);
+            list.insertAtEnd(random.nextInt(89) + 10);
         }
         System.out.println("Gerado");
         list.print();
-        list.heap_sort();
+        list.bucket_sort();
         System.out.println("Ordenado: ");
         list.print();
     }

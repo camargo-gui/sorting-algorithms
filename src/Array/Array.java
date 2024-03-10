@@ -245,32 +245,33 @@ public class Array {
     }
 
     public void bucket_sort(){
-        int aux,i, pos;
-        Node N;
-        List[] buckets = new List[10];
+        int aux,i, pos, n=10;
+        Node node;
+        List[] buckets = new List[n];
 
-        for (i=0; i<10; i++){
+        for (i=0; i<n; i++){
             buckets[i] = new List();
         }
 
         for (i=0;i<TL;i++){
+            //numbers between 10 and 99
             aux = array[i]/10;
             buckets[aux].insertAtEnd(array[i]);
         }
 
-        for (i=0;i<10;i++){
+        for (i=0;i<n;i++){
             if(buckets[i].length() > 0){
                 buckets[i].insertion_sort();
             }
         }
 
         aux = 0;
-        for (i=0; i<10; i++){
-            N = buckets[i].getByPos(0);
+        for (i=0; i<n; i++){
+            node = buckets[i].getStart();
             for(pos = 0; pos < buckets[i].length(); pos++){
-                array[aux] = N.getInfo();
+                array[aux] = node.getInfo();
                 aux ++;
-                N = N.getNext();
+                node = node.getNext();
             }
         }
 
