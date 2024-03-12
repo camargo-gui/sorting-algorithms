@@ -55,6 +55,26 @@ public class List {
         }
     }
 
+    private int max(){
+        int major = start.getInfo();
+        for(Node i = start; i != null; i = i.getNext()){
+            if(i.getInfo() > major){
+                major = i.getInfo();
+            }
+        }
+        return major;
+    }
+
+    private int min(){
+        int minor = start.getInfo();
+        for(Node i = start; i != null; i = i.getNext()){
+            if(i.getInfo() < minor){
+                minor = i.getInfo();
+            }
+        }
+        return minor;
+    }
+
     public void remove(int info){
         Node aux = exhaustive_search(info);
         if (aux != null){
@@ -297,9 +317,9 @@ public class List {
         }
     }
 
-    public void bucket_sort(){
-        int n = 10, i, aux;
-        List [] buckets = new List[10];
+    public void bucket_sort(int n){
+        int i, aux, index, min = min(), max = max();
+        List [] buckets = new List[n];
         Node node, OLNode;
         //initialize buckets
         for(i=0; i<n; i++){
@@ -307,8 +327,8 @@ public class List {
         }
 
         for(node = start; node != null; node = node.getNext()){
-            aux = node.getInfo()/10;
-            buckets[aux].insertAtEnd(node.getInfo());
+            index = (node.getInfo() - min) * (n-1) / (max - min);
+            buckets[index].insertAtEnd(node.getInfo());
         }
 
         for(i=0; i<n; i++){

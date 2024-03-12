@@ -23,6 +23,26 @@ public class Array {
         }
     }
 
+    public int max(){
+        int major = 0;
+        for(int i =0; i<TL; i++){
+            if(array[i] > major){
+                major = array[i];
+            }
+        }
+        return major;
+    }
+
+    public int min(){
+        int minor = array[0];
+        for(int i = 1; i< TL; i++){
+            if(i<minor){
+                minor = i;
+            }
+        }
+        return minor;
+    }
+
     public int exhaustive_search(int element) {
         int pos = 0;
         while (pos < TL && element != this.array[pos]) {
@@ -244,8 +264,8 @@ public class Array {
 
     }
 
-    public void bucket_sort(){
-        int aux,i, pos, n=10;
+    public void bucket_sort(int n){
+        int aux,i, pos, index, min = min(), max = max();
         Node node;
         List[] buckets = new List[n];
 
@@ -254,9 +274,8 @@ public class Array {
         }
 
         for (i=0;i<TL;i++){
-            //numbers between 10 and 99
-            aux = array[i]/10;
-            buckets[aux].insertAtEnd(array[i]);
+            index = ((array[i]-min())*(n-1))/(max-min);
+            buckets[index].insertAtEnd(array[i]);
         }
 
         for (i=0;i<n;i++){

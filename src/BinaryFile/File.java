@@ -85,6 +85,34 @@ public class File {
         { }
     }
 
+    public int max(){
+        Record rec = new Record();
+        seekFile(0);
+        rec.read(file);
+        int major = rec.getcod();
+        while(!eof()){
+            rec.read(file);
+            if(rec.getcod() > major){
+                major = rec.getcod();
+            }
+        }
+        return major;
+    }
+
+    public int minor(){
+        Record rec = new Record();
+        seekFile(0);
+        rec.read(file);
+        int minor = rec.getcod();
+        while(!eof()){
+            rec.read(file);
+            if(rec.getcod() < minor){
+                minor = rec.getcod();
+            }
+        }
+        return minor;
+    }
+
     public int binary_search(int info, int end){
         Record reg = new Record();
         int start = 0, half = end/2;
@@ -321,8 +349,8 @@ public class File {
         }
     }
 
-    public void bucket_sort(){
-        int n = 10, i, pos;
+    public void bucket_sort(int n){
+        int i, pos, min = minor(), max = max();
         Record rec = new Record();
         File [] buckets = new File[n];
 
@@ -333,7 +361,7 @@ public class File {
         for(i=0; i<filesize(); i++){
             seekFile(i);
             rec.read(file);
-            pos = rec.getcod()/10;
+            pos = (rec.getcod()-min) * (n-1) / (max - min);
             buckets[pos].insertAtEnd(rec);
         }
 
