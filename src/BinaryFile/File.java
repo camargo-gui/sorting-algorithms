@@ -405,10 +405,8 @@ public class File {
                     seekFile(j);
                     aux2.write(file);
                     j-=dist;
-                    if(j-dist >= 0){
-                        seekFile(j-dist);
-                        aux2.read(file);
-                    }
+                    seekFile(j-dist);
+                    aux2.read(file);
                 }
                 seekFile(j);
                 aux.write(file);
