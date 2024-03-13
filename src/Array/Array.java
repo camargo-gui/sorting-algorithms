@@ -296,6 +296,30 @@ public class Array {
 
     }
 
+    public void shell_sort(){
+        int dist = 1, i, j, aux;
+
+        while (dist < TL){
+            dist = dist * 3 + 1;
+        }
+        dist /= 3;
+
+        while(dist > 0){
+            for (i = dist; i < TL; i++){
+                aux = array[i];
+                j = i;
+                while(j-dist >= 0 && aux < array[j - dist]){
+                    array[j] = array[j-dist];
+                    j = j - dist;
+                }
+                array[j] = aux;
+            }
+            dist/=3;
+        }
+
+
+    }
+
 
 
 

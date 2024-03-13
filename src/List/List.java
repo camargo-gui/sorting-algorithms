@@ -348,8 +348,30 @@ public class List {
                 }
             }
         }
+    }
 
+    public void shell_sort(){
+        int i, j, aux, dist = 1, length = length();
+
+        while(dist < length){
+            dist = dist * 3 + 1;
+        }
+        dist /= 3;
+
+        while(dist > 0) {
+            for(i = dist; i < length; i++){
+                j = i;
+                aux = getByPos(j).getInfo();
+                while(j - dist >= 0 && getByPos(j-dist).getInfo() > getByPos(j).getInfo()){
+                    getByPos(j).setInfo(getByPos(j-dist).getInfo());
+                    j -= dist;
+                }
+                getByPos(i).setInfo(aux);
+            }
+            dist /= 3;
+        }
 
     }
+
 
 }

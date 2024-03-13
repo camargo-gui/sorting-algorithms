@@ -383,8 +383,38 @@ public class File {
                 }
             }
         }
+    }
 
+    public void shell_sort(){
+        Record aux = new Record(), aux2 = new Record();
+        int i, j, length = filesize(), dist = 1;
 
+        while(dist < length){
+            dist = dist * 3 + 1;
+        }
+        dist /= 3;
+
+        while(dist > 0){
+            for(i = dist; i < length; i++){
+                j = i;
+                seekFile(j);
+                aux.read(file);
+                seekFile(j-dist);
+                aux2.read(file);
+                while(j-dist >= 0 && aux.getcod() < aux2.getcod()){
+                    seekFile(j);
+                    aux2.write(file);
+                    j-=dist;
+                    if(j-dist >= 0){
+                        seekFile(j-dist);
+                        aux2.read(file);
+                    }
+                }
+                seekFile(j);
+                aux.write(file);
+            }
+            dist /= 3;
+        }
     }
 
 
