@@ -3,6 +3,8 @@ package Array;
 import List.Node;
 import List.List;
 
+import javax.swing.text.GapContent;
+
 public class Array {
     private int[] array;
     private int TL;
@@ -333,6 +335,30 @@ public class Array {
             i++;
         }
     }
+
+    public int gapCalculate(int gap){
+        int newGap = (int) (gap/1.3);
+        return Math.max(newGap, 1);
+    }
+
+    public void comb_sort(){
+        int gap = TL, i, j, aux;
+        while(gap > 1){
+            i = 0;
+            gap =  gapCalculate(gap);
+            j = i + gap;
+            while(j < TL){
+                if (array[i] > array[j]){
+                    aux = array[j];
+                    array[j] = array[i];
+                    array[i] = aux;
+                }
+                i++;
+                j = i + gap;
+            }
+        }
+    }
+
 
 
 

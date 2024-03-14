@@ -390,5 +390,31 @@ public class List {
         }
     }
 
+    public int gapCalculate(int gap){
+        int newGap = (int) (gap/1.3);
+        return Math.max(newGap, 1);
+    }
+
+    public void comb_sort(){
+        Node nodeI, nodeJ;
+        int gap = length(), length = gap, aux, i, j;
+        while (gap > 1){
+            i = 0;
+            gap = gapCalculate(gap);
+            j = i + gap;
+            while(j < length){
+                nodeI = getByPos(i);
+                nodeJ = getByPos(j);
+                if(nodeI.getInfo() > nodeJ.getInfo()){
+                    aux = nodeI.getInfo();
+                    nodeI.setInfo(nodeJ.getInfo());
+                    nodeJ.setInfo(aux);
+                }
+                i++;
+                j = i + gap;
+            }
+        }
+    }
+
 
 }

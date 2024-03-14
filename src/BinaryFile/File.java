@@ -419,7 +419,7 @@ public class File {
 
     public void gnome_sort(){
         int pos = 0, length = filesize();
-        Record rec = new Record(), rec2 = new Record(), aux = new Record();
+        Record rec = new Record(), rec2 = new Record();
         while(pos < length){
             if(pos == 0){
                 pos++;
@@ -439,6 +439,36 @@ public class File {
                 }
             }
             pos++;
+        }
+    }
+
+    public int gapCalculate(int gap){
+        int newGap = (int) (gap/1.3);
+        return Math.max(newGap, 1);
+    }
+
+    public void comb_sort(){
+        int i, j;
+        Record rec1 = new Record(), rec2 = new Record();
+        int length = filesize(), gap = length;
+        while(gap > 1){
+            i = 0;
+            gap = gapCalculate(gap);
+            j = i + gap;
+            while(j < length){
+                seekFile(i);
+                rec1.read(file);
+                seekFile(j);
+                rec2.read(file);
+                if(rec1.getcod() > rec2.getcod()){
+                    seekFile(i);
+                    rec2.write(file);
+                    seekFile(j);
+                    rec1.write(file);
+                }
+                i ++;
+                j = i+gap;
+            }
         }
     }
 
