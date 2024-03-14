@@ -184,12 +184,13 @@ public class File {
     //resolver atribuição menor
     public void selection_sort(){
         Record rec = new Record(), minor = new Record();
-        int pos = 1, tam = filesize(), posMinor = 0, i;
-        seekFile(0);
-        minor.read(file);
-        while(pos < tam){
-            i = pos;
-            while(i < tam){
+        int pos = 0, length = filesize(), posMinor = 0, i;
+        while(pos < length - 1){
+            posMinor = pos;
+            seekFile(posMinor);
+            minor.read(file);
+            i = pos + 1;
+            while(i < length){
                 seekFile(i);
                 rec.read(file);
                 if(rec.getcod() < minor.getcod()){

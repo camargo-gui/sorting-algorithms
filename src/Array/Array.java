@@ -111,7 +111,7 @@ public class Array {
     }
 
     public void selection_sort(){
-        int pos = 0, i, minor;
+        int pos = 0, i, minor, aux;
         while (pos < TL - 1) {
             i = pos + 1;
             minor = pos;
@@ -121,8 +121,9 @@ public class Array {
                 }
                 i++;
             }
-            array[minor] = array[pos];
+            aux = array[pos];
             array[pos] = array[minor];
+            array[minor] = aux;
             pos ++;
         }
     }

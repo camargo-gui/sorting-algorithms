@@ -16,7 +16,7 @@ public class SortingTests {
         }
         System.out.println("Gerado");
         list.print();
-        list.comb_sort();
+        list.selection_sort();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -29,7 +29,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.comb_sort();
+        array.selection_sort();
         array.print();
     }
 
@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.comb_sort();
+        file.selection_sort();
         file.showFile();
     }
 }
