@@ -281,7 +281,7 @@ public class List {
             B[i] += B[i-1];
         }
 
-        for(Node i = end; i != start; i = i.getPrev()){
+        for(Node i = end; i != null; i = i.getPrev()){
             pos = B[i.getInfo()];
             B[i.getInfo()] -= 1;
             C[pos - 1] = i.getInfo();
@@ -293,6 +293,52 @@ public class List {
             aux = aux.getNext();
         }
     }
+
+    public void counting_sort(int radix){
+        //find the major
+        int major = 0, pos, j=0;
+        for(Node i = start; i != null; i = i.getNext()){
+            if(getDigit(i.getInfo(), radix) > major){
+                major = getDigit(i.getInfo(), radix);
+            }
+        }
+
+        int [] B = new int[major+1], C = new int[length()];
+
+        for(Node i = start; i != null; i = i.getNext()){
+            B[getDigit(i.getInfo(), radix)] += 1;
+        }
+
+        for(int i=1; i<=major; i++){
+            B[i] += B[i-1];
+        }
+
+        for(Node i = end; i != null; i = i.getPrev()){
+            pos = B[getDigit(i.getInfo(), radix)];
+            B[getDigit(i.getInfo(), radix)] -= 1;
+            C[pos - 1] = i.getInfo();
+        }
+
+        Node aux = start;
+        for(int i = 0; aux != null && i < length(); i++){
+            aux.setInfo(C[i]);
+            aux = aux.getNext();
+        }
+    }
+    public int getDigit(int number, int index){
+        if(index < 0 || number == 0){
+            return 0;
+        }
+        int divider = (int) Math.pow(10, index);
+        return (number/divider)%10;
+    }
+
+    public void radix_sort(int maxLength){
+        for(int i = 0; i<maxLength; i++){
+            counting_sort(i);
+        }
+    }
+
     public void heap_sort(){
         int TL = length(), root, nodeL, nodeR, aux, majorNode;
         while(TL > 1){
@@ -358,11 +404,11 @@ public class List {
             for(i = dist; i < length; i++){
                 j = i;
                 aux = getByPos(j).getInfo();
-                while(j - dist >= 0 && getByPos(j-dist).getInfo() > getByPos(j).getInfo()){
+                while(j - dist >= 0 && getByPos(j-dist).getInfo() > aux){
                     getByPos(j).setInfo(getByPos(j-dist).getInfo());
                     j -= dist;
                 }
-                getByPos(i).setInfo(aux);
+                getByPos(j).setInfo(aux);
             }
             dist /= 3;
         }

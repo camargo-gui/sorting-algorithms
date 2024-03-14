@@ -210,7 +210,6 @@ public class Array {
         array = C;
     }
 
-    //arrumar <----------------------
     public void counting_sort(int radix){
         int major = 0, pos, digit;
         for(int i=0; i<TL; i++){

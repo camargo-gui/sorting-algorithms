@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class SortingTests {
     public void ListTest () {
+        System.out.println("---------> List: ");
         List list = new List();
         Random random = new Random();
         for (int i = 990; i >50; i = i -27) {
@@ -16,12 +17,13 @@ public class SortingTests {
         }
         System.out.println("Gerado");
         list.print();
-        list.binary_insertion();
+        list.radix_sort(3);
         System.out.println("Ordenado: ");
         list.print();
     }
 
     public void ArrayTest () {
+        System.out.println("---------> Array: ");
         Array array = new Array();
         for (int i = 990; i >50; i = i -27) {
             array.add(i);
@@ -29,11 +31,12 @@ public class SortingTests {
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.selection_sort();
+        array.radix_sort(3);
         array.print();
     }
 
     public void FileTest(){
+        System.out.println("---------> File: ");
         File file = new File("Teste.dat");
         file.seekFile(0);
         file.insertAtEnd(new Record(129, "Teste2", 21));
@@ -52,7 +55,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.binary_insertion_sort();
+        file.radix_sort(3);
         file.showFile();
     }
 }

@@ -250,7 +250,7 @@ public class File {
             end--;
             if(change){
                 change = false;
-                for(pos = end; pos >= start; pos--){
+                for(pos = end - 1; pos >= start; pos--){
                     seekFile(pos);
                     rec1.read(file);
                     rec2.read(file);
@@ -305,6 +305,61 @@ public class File {
             rec.read(aux.file);
             rec.write(file);
         }
+    }
+
+    public void couting_sort(int radix){
+        int major = 0, tam = filesize(), pos;
+        File aux = new File("aux.dat");
+        Record rec = new Record();
+        seekFile(0);
+        while(!eof()){
+            rec.read(file);
+            if(getDigit(rec.getcod(),radix) > major){
+                major = getDigit(rec.getcod(),radix);
+            }
+        }
+
+        int []  B = new int[major+1];
+
+        seekFile(0);
+        while(!eof()){
+            rec.read(file);
+            B[getDigit(rec.getcod(),radix)] += 1;
+        }
+
+        for(int i=1; i<=major; i++){
+            B[i] += B[i-1];
+        }
+
+        for(int i = tam; i>=0; i--){
+            seekFile(i);
+            rec.read(file);
+            pos = B[getDigit(rec.getcod(),radix)];
+            B[getDigit(rec.getcod(),radix)] -= 1;
+            aux.seekFile(pos-1);
+            rec.write(aux.file);
+        }
+
+        for(int i = 0; i < filesize(); i++){
+            aux.seekFile(i);
+            seekFile(i);
+            rec.read(aux.file);
+            rec.write(file);
+        }
+    }
+
+    public void radix_sort(int maxLength){
+        for(int i = 0; i<maxLength; i++){
+            couting_sort(i);
+        }
+    }
+
+    public int getDigit(int number, int index){
+        if(index < 0 || number == 0){
+            return 0;
+        }
+        int divider = (int) Math.pow(10, index);
+        return (number/divider)%10;
     }
 
     public void heap_sort(){
