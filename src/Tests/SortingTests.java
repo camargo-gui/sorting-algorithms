@@ -16,7 +16,7 @@ public class SortingTests {
         }
         System.out.println("Gerado");
         list.print();
-        list.selection_sort();
+        list.binary_insertion();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.selection_sort();
+        file.binary_insertion_sort();
         file.showFile();
     }
 }

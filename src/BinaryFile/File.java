@@ -119,10 +119,10 @@ public class File {
         seekFile(half);
         reg.read(file);
         while(start < end && reg.getcod() != info){
-            if(reg.getcod() > info){
+            if(reg.getcod() < info){
                 start = half + 1;
             }
-            if(reg.getcod() < info){
+            if(reg.getcod() > info){
                 end = half - 1;
             }
             half = (start+end)/2;
@@ -181,7 +181,6 @@ public class File {
         }
     }
 
-    //resolver atribuição menor
     public void selection_sort(){
         Record rec = new Record(), minor = new Record();
         int pos = 0, length = filesize(), posMinor = 0, i;

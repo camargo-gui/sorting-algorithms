@@ -138,42 +138,38 @@ public class List {
         return i;
     }
 
-    public Node middle_calculate(Node start, Node end){
-        int middle = Math.floorDiv(length(start, end),2);
-        Node aux = start;
-        for(int i = 0; i<middle; i++){
-            aux = aux.getNext();
-        }
-        return aux;
-    }
-
-    public Node binary_search_to_insertion(int info, Node end){
-        Node start = this.start, middle = middle_calculate(start, end);
-        while(start.getInfo() < end.getInfo() && info != middle.getInfo()){
-            if (info > middle.getInfo()){
-                start = middle.getNext();
+    public int binary_search_to_insertion(int info, int end){
+        Node node = new Node();
+        int half = end/2, start = 0;
+        node = getByPos(half);
+        while(start < end && node.getInfo() != info){
+            if(node.getInfo() < info){
+                start = half + 1;
             }
             else {
-                end = middle.getPrev();
+                end = half - 1;
             }
-            middle = middle_calculate(start, end);
+            half = (start + end)/2;
+            node = getByPos(half);
         }
-        if (info > middle.getInfo()){
-            return middle.getNext();
+        if(node.getInfo() < info){
+            return half + 1;
         }
-        return middle;
+        return half;
     }
 
-    public void binary_insertion_sort(){
-        Node pos = start, sub, aux;
-        while (pos != null){
-            sub = binary_search_to_insertion(pos.getInfo(), pos);
-            aux = pos;
-            pos.getPrev().setNext(pos.getNext());
-            pos.getNext().setPrev(pos.getPrev());
-            sub.getNext().setPrev(aux);
-            sub.getPrev().setNext(aux);
-            pos = pos.getNext();
+    public void binary_insertion(){
+        int pos = 0, i, j, length = length(), aux;
+        while(pos < length - 1){
+            i = pos + 1;
+            aux = getByPos(i).getInfo();
+            j = binary_search_to_insertion(aux, pos);
+            while(i > j){
+                getByPos(i).setInfo(getByPos(i-1).getInfo());
+                i--;
+            }
+            getByPos(j).setInfo(aux);
+            pos++;
         }
     }
 
