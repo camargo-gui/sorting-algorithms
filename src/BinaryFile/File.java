@@ -405,13 +405,40 @@ public class File {
                     seekFile(j);
                     aux2.write(file);
                     j-=dist;
-                    seekFile(j-dist);
-                    aux2.read(file);
+                    if(j-dist >= 0){
+                        seekFile(j-dist);
+                        aux2.read(file);
+                    }
                 }
                 seekFile(j);
                 aux.write(file);
             }
             dist /= 3;
+        }
+    }
+
+    public void gnome_sort(){
+        int pos = 0, length = filesize();
+        Record rec = new Record(), rec2 = new Record(), aux = new Record();
+        while(pos < length){
+            if(pos == 0){
+                pos++;
+            }
+            seekFile(pos-1);
+            rec2.read(file);
+            rec.read(file);
+            while(pos > 0 && rec.getcod() < rec2.getcod()){
+                seekFile(pos-1);
+                rec.write(file);
+                rec2.write(file);
+                pos--;
+                if(pos > 0){
+                    seekFile(pos-1);
+                    rec2.read(file);
+                    rec.read(file);
+                }
+            }
+            pos++;
         }
     }
 

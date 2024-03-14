@@ -316,10 +316,23 @@ public class Array {
             }
             dist/=3;
         }
-
-
     }
 
+    public void gnome_sort(){
+        int i = 0, aux;
+        while(i < TL){
+            if(i == 0){
+                i++;
+            }
+            while(i > 0 && array[i] < array[i-1]){
+                aux = array[i];
+                array[i] = array[i-1];
+                array[i-1] = aux;
+                i--;
+            }
+            i++;
+        }
+    }
 
 
 

@@ -12,11 +12,11 @@ public class SortingTests {
         List list = new List();
         Random random = new Random();
         for (int i = 990; i >50; i = i -27) {
-            list.insertAtEnd(random.nextInt(89) + 10);
+            list.insertAtEnd(random.nextInt(1000));
         }
         System.out.println("Gerado");
         list.print();
-        list.bucket_sort(3);
+        list.gnome_sort();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -29,7 +29,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.shell_sort();
+        array.gnome_sort();
         array.print();
     }
 
@@ -52,7 +52,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.shell_sort();
+        file.gnome_sort();
         file.showFile();
     }
 }

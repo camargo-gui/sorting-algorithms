@@ -370,7 +370,24 @@ public class List {
             }
             dist /= 3;
         }
+    }
 
+
+    public void gnome_sort(){
+        int aux;
+        Node i = start;
+        while(i != null){
+            if(i.getPrev() == null){
+                i = i.getNext();
+            }
+            while(i.getPrev() != null && i.getInfo() < i.getPrev().getInfo()){
+                aux = i.getInfo();
+                i.setInfo(i.getPrev().getInfo());
+                i.getPrev().setInfo(aux);
+                i = i.getPrev();
+            }
+            i = i.getNext();
+        }
     }
 
 
