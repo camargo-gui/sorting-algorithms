@@ -17,7 +17,7 @@ public class SortingTests {
         }
         System.out.println("Gerado");
         list.print();
-        list.radix_sort(3);
+        list.quick_sort();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -31,7 +31,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.radix_sort(3);
+        array.quick_sort();
         array.print();
     }
 
@@ -55,7 +55,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.radix_sort(3);
+        file.quick_sort();
         file.showFile();
     }
 }

@@ -458,5 +458,43 @@ public class List {
         }
     }
 
+    public void quick_sort(){
+        quick_sort_sp(0, length() - 1);
+    }
+
+    public void quick_sort_sp(int start, int end){
+        int i = start, j = end, aux;
+        Node nodeI, nodeJ;
+
+        while(i < j){
+            nodeI = getByPos(i);
+            nodeJ = getByPos(j);
+
+            while(i<j && nodeI.getInfo() <= nodeJ.getInfo()){
+                i++;
+                nodeI = getByPos(i);
+            }
+
+            aux = nodeI.getInfo();
+            nodeI.setInfo(nodeJ.getInfo());
+            nodeJ.setInfo(aux);
+
+            while(i<j && nodeI.getInfo() <= nodeJ.getInfo()){
+                j--;
+                nodeJ = getByPos(j);
+            }
+
+            aux = nodeI.getInfo();
+            nodeI.setInfo(nodeJ.getInfo());
+            nodeJ.setInfo(aux);
+        }
+        if(start < i-1){
+            quick_sort_sp(start, i-1);
+        }
+        if(j+1 < end){
+            quick_sort_sp(j+1, end);
+        }
+    }
+
 
 }

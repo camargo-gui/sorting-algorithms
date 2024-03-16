@@ -359,6 +359,41 @@ public class Array {
         }
     }
 
+    public void quick_sort(){
+        quick_sort_sp(0, TL-1);
+    }
+
+    public void quick_sort_sp(int start, int end){
+        int i = start, j = end, aux;
+
+        while(i < j){
+
+            while(i < j && array[i] <= array[j]){
+                i++;
+            }
+            aux = array[i];
+            array[i] = array[j];
+            array[j] = aux;
+
+            while (i<j && array[j] >= array[i]){
+                j--;
+            }
+            aux = array[i];
+            array[i] = array[j];
+            array[j] = aux;
+        }
+
+        if(start < i-1){
+            quick_sort_sp(start, i-1);
+        }
+        if(j+1 < end){
+            quick_sort_sp(j+1, end);
+        }
+
+    }
+
+
+
 
 
 

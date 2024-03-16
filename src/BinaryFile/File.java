@@ -527,5 +527,68 @@ public class File {
         }
     }
 
+    public void quick_sort(){
+        quick_sort_sp(0, filesize() -1);
+    }
+
+    public void quick_sort_sp(int start, int end){
+        Record recI = new Record(), recJ = new Record();
+        int i = start, j = end;
+
+        while(i < j){
+
+            seekFile(i);
+            recI.read(file);
+            seekFile(j);
+            recJ.read(file);
+
+            while(i<j && recI.getcod() <= recJ.getcod()){
+                i++;
+                seekFile(i);
+                recI.read(file);
+            }
+
+            if(recI.getcod() != recJ.getcod()){
+                seekFile(i);
+                recI.read(file);
+                seekFile(j);
+                recJ.read(file);
+                seekFile(j);
+                recI.write(file);
+                seekFile(i);
+                recJ.write(file);
+            }
+
+            seekFile(i);
+            recI.read(file);
+            seekFile(j);
+            recJ.read(file);
+
+            while (i<j && recI.getcod() <= recJ.getcod()){
+                j--;
+                seekFile(j);
+                recJ.read(file);
+            }
+
+            if(recI.getcod() != recJ.getcod()){
+                seekFile(i);
+                recI.read(file);
+                seekFile(j);
+                recJ.read(file);
+                seekFile(j);
+                recI.write(file);
+                seekFile(i);
+                recJ.write(file);
+            }
+        }
+
+        if(start < i-1){
+            quick_sort_sp(start, i-1);
+        }
+        if(j+1 < end){
+            quick_sort_sp(j+1, end);
+        }
+    }
+
 
 }
