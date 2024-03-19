@@ -528,7 +528,7 @@ public class File {
     }
 
     public void quick_sort(){
-        quick_sort_sp(0, filesize() -1);
+        quick_sort_cp(0, filesize() -1);
     }
 
     public void quick_sort_sp(int start, int end){
@@ -587,6 +587,48 @@ public class File {
         }
         if(j+1 < end){
             quick_sort_sp(j+1, end);
+        }
+    }
+
+    public void quick_sort_cp(int start, int end){
+        int i = start, j = end;
+        Record recI = new Record(), recJ = new Record(), recPivot = new Record();
+
+        seekFile((i+j)/2);
+        recPivot.read(file);
+
+        while (i < j) {
+            seekFile(i);
+            recI.read(file);
+            while (recI.getcod() < recPivot.getcod()){
+                i++;
+                recI.read(file);
+            }
+
+            seekFile(j);
+            recJ.read(file);
+            while(recJ.getcod() > recPivot.getcod()){
+                j--;
+                seekFile(j);
+                recJ.read(file);
+            }
+
+            if(i <= j){
+                seekFile(i);
+                recJ.write(file);
+                seekFile(j);
+                recI.write(file);
+                i++;
+                j--;
+            }
+        }
+
+        if (start < i){
+            quick_sort_cp(start, j);
+        }
+
+        if (j < end) {
+            quick_sort_cp(i, end);
         }
     }
 

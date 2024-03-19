@@ -360,7 +360,7 @@ public class Array {
     }
 
     public void quick_sort(){
-        quick_sort_sp(0, TL-1);
+        quick_sort_cp(0, TL-1);
     }
 
     public void quick_sort_sp(int start, int end){
@@ -389,12 +389,35 @@ public class Array {
         if(j+1 < end){
             quick_sort_sp(j+1, end);
         }
-
     }
 
+    public void quick_sort_cp(int start, int end){
+        int i = start, j = end, aux, index = (start + end)/2;
+        int pivot = array[index];
 
+        while(i<j){
+            while(array[i]<pivot){
+                i++;
+            }
 
+            while(array[j] > pivot){
+                j--;
+            }
 
-
+            if( i <= j){
+                aux = array[i];
+                array[i] = array[j];
+                array[j] = aux;
+                i++;
+                j--;
+            }
+        }
+        if(start < j){
+            quick_sort_cp(start, j);
+        }
+        if(i < end){
+            quick_sort_cp(i,end);
+        }
+    }
 
 }

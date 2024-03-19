@@ -459,7 +459,7 @@ public class List {
     }
 
     public void quick_sort(){
-        quick_sort_sp(0, length() - 1);
+        quick_sort_cp(0, length() - 1);
     }
 
     public void quick_sort_sp(int start, int end){
@@ -493,6 +493,38 @@ public class List {
         }
         if(j+1 < end){
             quick_sort_sp(j+1, end);
+        }
+    }
+
+    public void quick_sort_cp(int start, int end){
+        int i = start, j = end, aux, index = (start+end)/2;
+        Node pivot = getByPos(index), nodeI, nodeJ;
+        while (i < j){
+            nodeI = getByPos(i);
+            nodeJ = getByPos(j);
+            while (nodeI.getInfo() < pivot.getInfo()){
+                i++;
+                nodeI = nodeI.getNext();
+            }
+
+            while (nodeJ.getInfo() > pivot.getInfo()){
+                j--;
+                nodeJ = nodeJ.getPrev();
+            }
+
+            if(i <= j){
+                aux = nodeI.getInfo();
+                nodeI.setInfo(nodeJ.getInfo());
+                nodeJ.setInfo(aux);
+                i++;
+                j--;
+            }
+        }
+        if(start < j){
+            quick_sort_cp(start, j);
+        }
+        if(end > i){
+            quick_sort_cp(i, end);
         }
     }
 
