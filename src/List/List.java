@@ -528,5 +528,100 @@ public class List {
         }
     }
 
+    public void partition(int [] a, int [] b){
+        int length = length();
+        int i = 0, aux = length/2, k = 0;
+        while(k < length/2) {
+            a[i] = getByPos(k).getInfo();
+            b[i] = getByPos(k+aux).getInfo();
+            i++; k++;
+        }
+    }
+
+    public void segmentation(int [] a, int [] b, int seg){
+        int i = 0, j = 0, k = 0, length = length(), aux = seg, m;
+        while (k < length){
+            while(i < seg && j < seg){
+                if(a[i] < b[j]){
+                    getByPos(k++).setInfo(a[i++]);
+                }
+                else {
+                    getByPos(k++).setInfo(b[j++]);
+                }
+            }
+
+            while(i < seg){
+                getByPos(k++).setInfo(a[i++]);
+            }
+
+            while(j<seg){
+                getByPos(k++).setInfo(b[j++]);
+            }
+
+            seg += aux;
+        }
+    }
+    public void merge_sort_first_implementation(){
+        int length = length(), seg = 1;
+        int [] a = new int[length/2], b = new int[length/2];
+        while(seg < length){
+            partition(a, b);
+            segmentation(a, b, seg);
+            seg *= 2;
+        }
+    }
+
+    // second implementation
+
+    public void fusion(int [] aux, int start1, int end1, int start2, int end2){
+        Node pos;
+        int k = 0, t_start1 = start1, info1, info2;
+        while(start1 <= end1 && start2 <= end2){
+            info1 = getByPos(start1).getInfo();
+            info2 = getByPos(start2).getInfo();
+            if(info1 < info2){
+                aux[k++] = info1;
+                start1++;
+            }
+            else {
+                aux[k++] = info2;
+                start2++;
+            }
+        }
+
+        while(start1 <= end1){
+            info1 = getByPos(start1).getInfo();
+            aux[k++] = info1;
+            start1++;
+        }
+
+        while(start2 <= end2){
+            info2 = getByPos(start2).getInfo();
+            aux[k++] = info2;
+            start2++;
+        }
+
+        for(int i = 0; i < k; i++){
+            pos = getByPos(i+t_start1);
+            pos.setInfo(aux[i]);
+        }
+
+    }
+
+    public void merge(int [] aux, int left, int right){
+        int meio;
+        if(left < right){
+            meio = (left+right)/2;
+            merge(aux, left, meio);
+            merge(aux, meio+1, right);
+            fusion(aux, left, meio, meio+1, right);
+        }
+    }
+
+    public void merge_sort_second_implementation(){
+        int [] aux = new int[length()];
+        merge(aux, 0, length() - 1);
+    }
+
 
 }

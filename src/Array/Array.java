@@ -420,4 +420,83 @@ public class Array {
         }
     }
 
+    public void partition(int [] a1, int [] a2){
+        int tam = TL/2, k = 0;
+        for(int i = 0; i < tam; i++){
+            a1[i] = array[i];
+            a2[i] = array[i + tam];
+        }
+    }
+
+    public void segmentation(int [] a1, int [] a2, int seg) {
+        int i =0, j = 0, tam = TL/2, k = 0, aux = seg;
+        while (k < TL) {
+            while (i < seg && j < seg) {
+                if (a1[i] < a2 [j]){
+                    array[k++] = a1[i++];
+                }
+                else {
+                    array[k++] = a2[j++];
+                }
+            }
+            while (i<seg){
+                array[k++] = a1[i++];
+            }
+            while (j<seg) {
+                array[k++] = a2[j++];
+            }
+            seg += aux;
+        }
+    }
+
+    public void merge_sort1(){
+        int seg = 1;
+        int [] a1 = new int[TL/2], a2 = new int[TL/2];
+        while(seg < TL){
+            partition(a1, a2);
+            segmentation(a1, a2, seg);
+            seg *= 2;
+        }
+    }
+
+    // 2 implementation
+    public void fusion(int [] aux, int start1, int end1, int start2, int end2){
+        int k = 0, t_start1 = start1;
+        while(start1 <= end1 && start2 <= end2){
+            if(array[start1] < array[start2]){
+                aux[k++] = array[start1++];
+            }
+            else {
+                aux[k++] = array[start2++];
+            }
+        }
+
+        while(start1 <= end1){
+            aux[k++] = array[start1++];
+        }
+
+        while(start2 <= end2){
+            aux[k++] = array[start2++];
+        }
+
+        for(int i = 0; i<k; i++){
+            array[i + t_start1] = aux[i];
+        }
+    }
+
+    public void merge(int [] aux, int left, int right){
+        int half;
+        if(left < right){
+            half = (left+right)/2;
+            merge(aux, left, half);
+            merge(aux, half+ 1, right);
+            fusion(aux, left, half, half+1, right);
+        }
+    }
+
+    public void merge_second_implementation(){
+        int [] aux = new int[TL];
+        merge(aux, 0, TL -1);
+    }
+
 }

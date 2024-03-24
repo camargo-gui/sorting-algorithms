@@ -12,12 +12,12 @@ public class SortingTests {
         System.out.println("---------> List: ");
         List list = new List();
         Random random = new Random();
-        for (int i = 990; i >50; i = i -27) {
+        for (int i = 16; i > 0; i = i - 1) {
             list.insertAtEnd(random.nextInt(1000));
         }
         System.out.println("Gerado");
         list.print();
-        list.quick_sort();
+        list.merge_sort_second_implementation();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -25,13 +25,13 @@ public class SortingTests {
     public void ArrayTest () {
         System.out.println("---------> Array: ");
         Array array = new Array();
-        for (int i = 990; i >50; i = i -27) {
+        for (int i = 160; i > 0; i = i - 17) {
             array.add(i);
         }
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.quick_sort();
+        array.merge_second_implementation();
         array.print();
     }
 
@@ -47,15 +47,14 @@ public class SortingTests {
         file.insertAtEnd(new Record(75, "Teste6", 25));
         file.insertAtEnd(new Record(637, "Teste7", 26));
         file.insertAtEnd(new Record(38, "Teste8", 27));
-        file.insertAtEnd(new Record(66, "Teste9", 28));
-        file.insertAtEnd(new Record(547, "Teste10", 29));
-        file.insertAtEnd(new Record(29, "Teste11", 30));
-        file.insertAtEnd(new Record(13, "Teste12", 31));
-        file.insertAtEnd(new Record(11, "Teste13", 32));
+//        file.insertAtEnd(new Record(66, "Teste9", 28));
+//        file.insertAtEnd(new Record(547, "Teste10", 29));
+//        file.insertAtEnd(new Record(29, "Teste11", 30));
+//        file.insertAtEnd(new Record(13, "Teste12", 31));
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.quick_sort();
+        file.merge_sort_second_implementation();
         file.showFile();
     }
 }

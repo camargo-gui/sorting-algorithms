@@ -632,5 +632,132 @@ public class File {
         }
     }
 
+    public void partition(File a, File b){
+        Record recA = new Record(), recB = new Record();
+        a.seekFile(0); b.seekFile(0);
+        int length = filesize(), k = 0, aux = length/2;
+        while(k < aux){
+            seekFile(k);
+            recA.read(file);
+            recA.write(a.file);
+            seekFile(k+aux);
+            recB.read(file);
+            recB.write(b.file);
+            k++;
+        }
+    }
+
+    public void segmentation(File a, File b, int seg){
+        Record recA = new Record(), recB = new Record();
+        int aux = seg, k = 0, length = filesize(),  i = 0, j = 0;
+        seekFile(0);
+        while(k < length){
+            while(i < seg && j < seg) {
+                a.seekFile(i);
+                recA.read(a.file);
+                b.seekFile(j);
+                recB.read(b.file);
+
+                if (recA.getcod() < recB.getcod()) {
+                    seekFile(k++);
+                    recA.write(file);
+                    i++;
+                } else {
+                    seekFile(k++);
+                    recB.write(file);
+                    j++;
+                }
+            }
+
+                while (i < seg) {
+                    a.seekFile(i++);
+                    seekFile(k++);
+                    recA.read(a.file);
+                    recA.write(file);
+                }
+
+                while (j < seg) {
+                    b.seekFile(j++);
+                    seekFile(k++);
+                    recB.read(b.file);
+                    recB.write(file);
+                }
+            seg += aux;
+        }
+    }
+
+    public void merge_sort_first_implementation(){
+        File a = new File("aux1.dat"), b = new File("aux2.dat");
+        int seg = 1, length = filesize();
+        while(seg < length){
+            a.truncate(0); b.truncate(0);
+            partition(a,b);
+            segmentation(a,b,seg);
+            seg *= 2;
+        }
+    }
+
+
+    // second implementation
+
+    public void fusion(File aux, int start1, int end1, int start2, int end2){
+        aux.truncate(0);
+        int t_start1 = start1;
+        Record rec1 = new Record(), rec2 = new Record();
+        while(start1 <= end1 && start2 <= end2){
+            seekFile(start1);
+            rec1.read(file);
+            seekFile(start2);
+            rec2.read(file);
+
+            if(rec1.getcod() < rec2.getcod()){
+                rec1.write(aux.file);
+                start1++;
+            }
+            else {
+                rec2.write(aux.file);
+                start2++;
+            }
+        }
+
+        while(start1 <= end1){
+            seekFile(start1);
+            rec1.read(file);
+            rec1.write(aux.file);
+            start1++;
+        }
+
+        while(start2 <= end2){
+            seekFile(start2);
+            rec2.read(file);
+            rec2.write(aux.file);
+            start2++;
+        }
+
+        int length = aux.filesize();
+        aux.seekFile(0);
+        seekFile(t_start1);
+        for(int i = 0; i<length; i++){
+            rec1.read(aux.file);
+            rec1.write(file);
+        }
+    }
+
+    public void merge(File aux, int left, int right){
+        int half;
+        if(left < right){
+            half = (left+right)/2;
+            merge(aux, left, half);
+            merge(aux, half + 1, right);
+            fusion(aux, left, half, half + 1, right);
+        }
+    }
+
+    public void merge_sort_second_implementation(){
+        int length = filesize();
+        File aux = new File("aux.dat");
+        merge(aux, 0, length -1);
+    }
+
 
 }
