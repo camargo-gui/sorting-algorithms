@@ -3,10 +3,13 @@ package BinaryFile;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.rmi.registry.Registry;
+import java.util.Random;
 
 public class File {
     private String fileName;
     private RandomAccessFile file;
+
+    private int mov, comp;
 
     public File(String fileName)
     {
@@ -45,6 +48,56 @@ public class File {
             throw new RuntimeException(e);
         }
     }
+
+    public void initComp(){
+        comp = 0;
+    }
+
+    public void initMov(){
+        mov = 0;
+    }
+
+    public int getComp() {
+        return comp;
+    }
+
+    public int getMov() {
+        return mov;
+    }
+
+    public void buildOrderedFile(){
+        truncate(0);
+        for(int i = 0; i<50; i++){
+            insertAtEnd(new Record(i, "Teste", 0));
+        }
+    }
+
+    public void buildReversedFile(){
+        truncate(0);
+        for(int i = 50; i>0; i--){
+            insertAtEnd(new Record(i, "Teste", 0));
+        }
+    }
+
+    public void buildRandomFile(){
+        truncate(0);
+        for(int i = 0; i<50; i++){
+            insertAtEnd(new Record(new Random().nextInt(1024), "Teste", 0));
+        }
+    }
+
+    public void copy(File file){
+        Record rec = new Record();
+
+        seekFile(0);
+        file.truncate(0);
+        file.seekFile(0);
+        while(!eof()){
+            rec.read(this.file);
+            rec.write(file.file);
+        }
+    }
+
 
     public void insertAtEnd(Record rec)
     {
@@ -118,17 +171,22 @@ public class File {
         int start = 0, half = end/2;
         seekFile(half);
         reg.read(file);
+        comp++;
         while(start < end && reg.getcod() != info){
+            comp++;
             if(reg.getcod() < info){
                 start = half + 1;
             }
+            comp++;
             if(reg.getcod() > info){
                 end = half - 1;
             }
             half = (start+end)/2;
             seekFile(half);
             reg.read(file);
+            comp++;
         }
+        comp++;
         if(info > reg.getcod()){
             return half + 1;
         }
@@ -151,6 +209,7 @@ public class File {
                 rec2.write(file);
                 rec1.write(file);
                 j--;
+                mov+=2;
             }
             i++;
         }
@@ -169,11 +228,13 @@ public class File {
                 seekFile(j-1);
                 rec1.read(file);
                 rec2.read(file);
+                comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(j-1);
                     rec2.write(file);
                     rec1.write(file);
                     change = true;
+                    mov+=2;
                 }
                 j--;
             }
@@ -192,6 +253,7 @@ public class File {
             while(i < length){
                 seekFile(i);
                 rec.read(file);
+                comp++;
                 if(rec.getcod() < minor.getcod()){
                     minor = new Record(rec);
                     posMinor = i;
@@ -205,6 +267,7 @@ public class File {
             seekFile(posMinor);
             rec.write(file);
             pos++;
+            mov+=2;
         }
     }
 
@@ -218,11 +281,13 @@ public class File {
                 seekFile(i);
                 rec1.read(file);
                 rec2.read(file);
+                comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(i);
                     rec2.write(file);
                     rec1.write(file);
                     change = true;
+                    mov+=2;
                 }
             }
             tam--;
@@ -240,11 +305,13 @@ public class File {
                 seekFile(pos);
                 rec1.read(file);
                 rec2.read(file);
+                comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(pos);
                     rec2.write(file);
                     rec1.write(file);
                     change = true;
+                    mov+=2;
                 }
             }
             end--;
@@ -254,11 +321,13 @@ public class File {
                     seekFile(pos);
                     rec1.read(file);
                     rec2.read(file);
+                    comp++;
                     if(rec1.getcod() > rec2.getcod()){
                         seekFile(pos);
                         rec2.write(file);
                         rec1.write(file);
                         change = true;
+                        mov+=2;
                     }
                 }
             }
@@ -273,17 +342,18 @@ public class File {
         seekFile(0);
         while(!eof()){
             rec.read(file);
+            comp++;
             if(rec.getcod() > major){
                 major = rec.getcod();
             }
         }
 
-        int []  B = new int[major ];
+        int []  B = new int[major+1];
 
         seekFile(0);
         while(!eof()){
             rec.read(file);
-            B[rec.getcod() - 1] += 1;
+            B[rec.getcod()] += 1;
         }
 
         for(int i=1; i<major; i++){
@@ -293,10 +363,11 @@ public class File {
         for(int i = tam; i>=0; i--){
             seekFile(i);
             rec.read(file);
-            pos = B[rec.getcod() - 1];
-            B[rec.getcod() - 1] -= 1;
+            pos = B[rec.getcod()];
+            B[rec.getcod()] -= 1;
             aux.seekFile(pos-1);
             rec.write(aux.file);
+            mov++;
         }
 
         for(int i = 0; i < filesize(); i++){
@@ -304,6 +375,7 @@ public class File {
             seekFile(i);
             rec.read(aux.file);
             rec.write(file);
+            mov++;
         }
     }
 
@@ -314,6 +386,7 @@ public class File {
         seekFile(0);
         while(!eof()){
             rec.read(file);
+            comp++;
             if(getDigit(rec.getcod(),radix) > major){
                 major = getDigit(rec.getcod(),radix);
             }
@@ -338,6 +411,7 @@ public class File {
             B[getDigit(rec.getcod(),radix)] -= 1;
             aux.seekFile(pos-1);
             rec.write(aux.file);
+            mov++;
         }
 
         for(int i = 0; i < filesize(); i++){
@@ -345,6 +419,7 @@ public class File {
             seekFile(i);
             rec.read(aux.file);
             rec.write(file);
+            mov++;
         }
     }
 
@@ -376,6 +451,7 @@ public class File {
                     seekFile(nodeR);
                     recR.read(file);
                     majorNode = recR.getcod() > recL.getcod() ? nodeR : nodeL;
+                    comp++;
                 }
                 else {
                     majorNode = nodeL;
@@ -390,6 +466,7 @@ public class File {
                     recRoot.write(file);
                     seekFile(root);
                     aux.write(file);
+                    mov+=2;
                 }
             }
             seekFile(0);
@@ -400,6 +477,7 @@ public class File {
             aux.write(file);
             seekFile(TL-1);
             recRoot.write(file);
+            mov+=2;
             TL--;
         }
     }
@@ -418,6 +496,7 @@ public class File {
             rec.read(file);
             pos = (rec.getcod()-min) * (n-1) / (max - min);
             buckets[pos].insertAtEnd(rec);
+            mov++;
         }
 
         for(i=0;i<n;i++){
@@ -435,6 +514,7 @@ public class File {
                     seekFile(pos);
                     rec.write(file);
                     pos++;
+                    mov++;
                 }
             }
         }
@@ -456,17 +536,21 @@ public class File {
                 aux.read(file);
                 seekFile(j-dist);
                 aux2.read(file);
+                comp++;
                 while(j-dist >= 0 && aux.getcod() < aux2.getcod()){
                     seekFile(j);
                     aux2.write(file);
+                    mov++;
                     j-=dist;
                     if(j-dist >= 0){
                         seekFile(j-dist);
                         aux2.read(file);
                     }
+                    comp++;
                 }
                 seekFile(j);
                 aux.write(file);
+                mov++;
             }
             dist /= 3;
         }
@@ -482,16 +566,19 @@ public class File {
             seekFile(pos-1);
             rec2.read(file);
             rec.read(file);
+            comp++;
             while(pos > 0 && rec.getcod() < rec2.getcod()){
                 seekFile(pos-1);
                 rec.write(file);
                 rec2.write(file);
                 pos--;
+                mov+=2;
                 if(pos > 0){
                     seekFile(pos-1);
                     rec2.read(file);
                     rec.read(file);
                 }
+                comp++;
             }
             pos++;
         }
@@ -515,11 +602,13 @@ public class File {
                 rec1.read(file);
                 seekFile(j);
                 rec2.read(file);
+                comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(i);
                     rec2.write(file);
                     seekFile(j);
                     rec1.write(file);
+                    mov+=2;
                 }
                 i ++;
                 j = i+gap;
@@ -527,7 +616,10 @@ public class File {
         }
     }
 
-    public void quick_sort(){
+    public void quick_sort1(){
+        quick_sort_sp(0, filesize() -1);
+    }
+    public void quick_sort2(){
         quick_sort_cp(0, filesize() -1);
     }
 
@@ -542,12 +634,15 @@ public class File {
             seekFile(j);
             recJ.read(file);
 
+            comp++;
             while(i<j && recI.getcod() <= recJ.getcod()){
                 i++;
                 seekFile(i);
                 recI.read(file);
+                comp++;
             }
 
+            comp++;
             if(recI.getcod() != recJ.getcod()){
                 seekFile(i);
                 recI.read(file);
@@ -557,6 +652,7 @@ public class File {
                 recI.write(file);
                 seekFile(i);
                 recJ.write(file);
+                mov+=2;
             }
 
             seekFile(i);
@@ -564,12 +660,15 @@ public class File {
             seekFile(j);
             recJ.read(file);
 
+            comp++;
             while (i<j && recI.getcod() <= recJ.getcod()){
                 j--;
                 seekFile(j);
                 recJ.read(file);
+                comp++;
             }
 
+            comp++;
             if(recI.getcod() != recJ.getcod()){
                 seekFile(i);
                 recI.read(file);
@@ -579,6 +678,7 @@ public class File {
                 recI.write(file);
                 seekFile(i);
                 recJ.write(file);
+                mov+=2;
             }
         }
 
@@ -600,17 +700,21 @@ public class File {
         while (i < j) {
             seekFile(i);
             recI.read(file);
+            comp++;
             while (recI.getcod() < recPivot.getcod()){
                 i++;
                 recI.read(file);
+                comp++;
             }
 
             seekFile(j);
             recJ.read(file);
+            comp++;
             while(recJ.getcod() > recPivot.getcod()){
                 j--;
                 seekFile(j);
                 recJ.read(file);
+                comp++;
             }
 
             if(i <= j){
@@ -620,6 +724,7 @@ public class File {
                 recI.write(file);
                 i++;
                 j--;
+                mov+=2;
             }
         }
 
@@ -644,6 +749,7 @@ public class File {
             recB.read(file);
             recB.write(b.file);
             k++;
+            mov+=2;
         }
     }
 
@@ -658,6 +764,7 @@ public class File {
                 b.seekFile(j);
                 recB.read(b.file);
 
+                comp++;
                 if (recA.getcod() < recB.getcod()) {
                     seekFile(k++);
                     recA.write(file);
@@ -667,6 +774,7 @@ public class File {
                     recB.write(file);
                     j++;
                 }
+                mov++;
             }
 
                 while (i < seg) {
@@ -674,6 +782,7 @@ public class File {
                     seekFile(k++);
                     recA.read(a.file);
                     recA.write(file);
+                    mov++;
                 }
 
                 while (j < seg) {
@@ -681,6 +790,7 @@ public class File {
                     seekFile(k++);
                     recB.read(b.file);
                     recB.write(file);
+                    mov++;
                 }
             seg += aux;
         }
@@ -710,6 +820,7 @@ public class File {
             seekFile(start2);
             rec2.read(file);
 
+            comp++;
             if(rec1.getcod() < rec2.getcod()){
                 rec1.write(aux.file);
                 start1++;
@@ -718,6 +829,7 @@ public class File {
                 rec2.write(aux.file);
                 start2++;
             }
+            mov++;
         }
 
         while(start1 <= end1){
@@ -725,6 +837,7 @@ public class File {
             rec1.read(file);
             rec1.write(aux.file);
             start1++;
+            mov++;
         }
 
         while(start2 <= end2){
@@ -732,6 +845,7 @@ public class File {
             rec2.read(file);
             rec2.write(aux.file);
             start2++;
+            mov++;
         }
 
         int length = aux.filesize();
@@ -740,6 +854,7 @@ public class File {
         for(int i = 0; i<length; i++){
             rec1.read(aux.file);
             rec1.write(file);
+            mov++;
         }
     }
 

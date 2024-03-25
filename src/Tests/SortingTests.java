@@ -47,14 +47,14 @@ public class SortingTests {
         file.insertAtEnd(new Record(75, "Teste6", 25));
         file.insertAtEnd(new Record(637, "Teste7", 26));
         file.insertAtEnd(new Record(38, "Teste8", 27));
-//        file.insertAtEnd(new Record(66, "Teste9", 28));
-//        file.insertAtEnd(new Record(547, "Teste10", 29));
-//        file.insertAtEnd(new Record(29, "Teste11", 30));
-//        file.insertAtEnd(new Record(13, "Teste12", 31));
+        file.insertAtEnd(new Record(66, "Teste9", 28));
+        file.insertAtEnd(new Record(547, "Teste10", 29));
+        file.insertAtEnd(new Record(29, "Teste11", 30));
+        file.insertAtEnd(new Record(13, "Teste12", 31));
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.merge_sort_second_implementation();
+        file.couting_sort();
         file.showFile();
     }
 }
