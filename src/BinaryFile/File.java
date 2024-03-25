@@ -67,21 +67,21 @@ public class File {
 
     public void buildOrderedFile(){
         truncate(0);
-        for(int i = 0; i<50; i++){
+        for(int i = 0; i<1024; i++){
             insertAtEnd(new Record(i, "Teste", 0));
         }
     }
 
     public void buildReversedFile(){
         truncate(0);
-        for(int i = 50; i>0; i--){
+        for(int i = 1024; i>0; i--){
             insertAtEnd(new Record(i, "Teste", 0));
         }
     }
 
     public void buildRandomFile(){
         truncate(0);
-        for(int i = 0; i<50; i++){
+        for(int i = 0; i<1024; i++){
             insertAtEnd(new Record(new Random().nextInt(1024), "Teste", 0));
         }
     }

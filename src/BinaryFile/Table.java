@@ -11,7 +11,7 @@ public class Table {
     }
 
     public void buildTable() throws IOException {
-        long initialTime;
+        long initialTime, generalTime = System.currentTimeMillis();
         int orderedTotalTime, orderedComp, orderedMov, reversedComp, reversedMov, randomComp, randomMov, reversedTotalTime, randomTotalTime;
 
         Comparisons comp = new Comparisons();
@@ -561,6 +561,8 @@ public class Table {
         writeRow(table, "Merge Sort 2", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
 
         table.close();
+
+        System.out.println((System.currentTimeMillis() - generalTime)/1000 + " segundos");
 
 
     }
