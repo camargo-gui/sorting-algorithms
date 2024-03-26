@@ -34,6 +34,11 @@ public class Table {
 
         //Insertion Sort
 
+        System.out.println("Insertion Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
+
         //Ordered File
         orderedFile.initComp();
         orderedFile.initMov();
@@ -43,8 +48,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -53,8 +64,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -63,9 +80,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
         writeRow(table, "Insertion Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.orderedInsertionSort(TL), comp.reveresedInsertionSort(TL), comp.randomInsertionSort(TL), mov.orderedInsertionSort(TL), mov.reversedInsertionSort(TL), mov.randomInsertionSort(TL));
 
         //Binary Insertion Sort
+
+        System.out.println("Binary Insertion Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -76,8 +101,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -86,8 +117,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -96,9 +132,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
         writeRow(table, "Bin Insertion Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.binaryInsertionSort(TL), comp.binaryInsertionSort(TL), comp.binaryInsertionSort(TL), mov.orderedInsertionSort(TL), mov.reversedInsertionSort(TL), mov.randomInsertionSort(TL));
 
         //Selection Sort
+
+        System.out.println("Selection Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -109,8 +153,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -119,8 +169,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -129,9 +185,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Selection Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.binaryInsertionSort(TL), comp.binaryInsertionSort(TL), comp.binaryInsertionSort(TL), mov.orderedSelectionSort(TL), mov.reversedSelectionSort(TL), mov.randomSelectionSort(TL));
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Selection Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.selectionSort(TL), comp.selectionSort(TL), comp.selectionSort(TL), mov.orderedSelectionSort(TL), mov.reversedSelectionSort(TL), mov.randomSelectionSort(TL));
 
         //Bubble Sort
+
+        System.out.println("Bubble Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -142,8 +206,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -152,8 +222,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -162,9 +238,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
         writeRow(table, "Bubble Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.bubbleAndShakeSort(TL), comp.bubbleAndShakeSort(TL), comp.bubbleAndShakeSort(TL), mov.orderedBubbleAndShake(TL), mov.reversedBubbleAndShake(TL), mov.randomBubbleAndShake(TL));
 
         //Shake Sort
+
+        System.out.println("Shake Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -175,8 +259,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -185,8 +275,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -195,9 +291,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
         writeRow(table, "Shake Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, comp.bubbleAndShakeSort(TL), comp.bubbleAndShakeSort(TL), comp.bubbleAndShakeSort(TL), mov.orderedBubbleAndShake(TL), mov.reversedBubbleAndShake(TL), mov.randomBubbleAndShake(TL));
 
         // Counting Sort
+
+        System.out.println("Counting Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -208,8 +312,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -218,8 +328,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -228,9 +344,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Counting Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Counting Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Radix Sort
+
+        System.out.println("Radix Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -241,8 +365,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -251,8 +381,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -261,9 +397,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Radix Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Radix Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Heap Sort
+
+        System.out.println("Heap Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -274,8 +418,14 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -284,8 +434,14 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -294,9 +450,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Heap Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Heap Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         ///Bucket Sort
+
+        System.out.println("Bucket Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -307,8 +471,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -317,8 +486,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -327,10 +501,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Bucket Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Bucket Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Shell Sort
 
+        System.out.println("Shell Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
         //Ordered File
         orderedFile.initComp();
         orderedFile.initMov();
@@ -340,8 +521,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -350,8 +536,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -360,10 +551,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Shell Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Shell Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         ///Gnome Sort
 
+        System.out.println("Gnome Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
         //Ordered File
         orderedFile.initComp();
         orderedFile.initMov();
@@ -373,8 +571,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -383,8 +586,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -393,9 +601,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Gnome Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Gnome Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Comb Sort
+
+        System.out.println("Comb Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -406,8 +622,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -416,8 +637,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -426,10 +652,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Comb Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Comb Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Quick Sort No Pivot
 
+        System.out.println("Quick Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
         //Ordered File
         orderedFile.initComp();
         orderedFile.initMov();
@@ -439,8 +672,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -449,8 +687,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -459,10 +702,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Quick Sort s/p", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Quick Sort s/p", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Quick Sort With Pivot
 
+        System.out.println("Quick Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
         //Ordered File
         orderedFile.initComp();
         orderedFile.initMov();
@@ -472,8 +722,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -482,8 +737,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -492,9 +752,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Quick Sort c/p", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Quick Sort c/p", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Merge Sort First Implementation
+
+        System.out.println("Merge Sort 1");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -505,8 +773,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -515,8 +788,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -525,9 +803,17 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Merge Sort 1", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Merge Sort 1", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         //Merge Sort Second Implementation
+
+        System.out.println("Merge Sort 2");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
 
         //Ordered File
         orderedFile.initComp();
@@ -538,8 +824,13 @@ public class Table {
         orderedComp = orderedFile.getComp();
         orderedMov = orderedFile.getMov();
 
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
         //Reversed File
         reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
         reversedCopy.initComp();
         reversedCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -548,8 +839,13 @@ public class Table {
         reversedComp = reversedCopy.getComp();
         reversedMov = reversedCopy.getMov();
 
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
         //Random File
         randomFile.copy(randomCopy);
+        randomCopy.showFile();
         randomCopy.initComp();
         randomCopy.initMov();
         initialTime = System.currentTimeMillis();
@@ -558,7 +854,10 @@ public class Table {
         randomComp = randomCopy.getComp();
         randomMov = randomCopy.getMov();
 
-        writeRow(table, "Merge Sort 2", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, orderedTotalTime, reversedTotalTime, randomTotalTime);
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Merge Sort 2", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
         table.close();
 
@@ -588,7 +887,7 @@ public class Table {
         gravarArq.printf("===============================================================================================================================================================================================================================================================================================%n");
         gravarArq.printf("| %-17s \t| %-104s | %-104s | %-104s |%n", "Métodos Ordenação", "Arquivo Ordenado", "Arquivo em Ordem Reverso", "Arquivo Randômico");
         gravarArq.printf("===============================================================================================================================================================================================================================================================================================%n");
-        gravarArq.printf("\t %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s |%n",
+        gravarArq.printf("\t %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s | %-12s |%n",
                 "", "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo",
                 "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo",
                 "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo");
@@ -605,7 +904,7 @@ public class Table {
 
         PrintWriter gravarArq = new PrintWriter(table);
 
-        gravarArq.printf("| %-17s \t| %,13d | %,12d | %,12d | %,12d | %,17d | %,13d | %,12d | %,12d | %,12d | %,17d | %,13d | %,12d | %,12d | %,12d |%n",
+        gravarArq.printf("| %-17s \t| %,13d | %,12d | %,12d | %,12d | %,17d | %,13d | %,12d | %,12d | %,12d | %,17d | %,13d | %,12d | %,12d | %,12d | %,12d |%n",
                 methodName, orderedComp, orderedCompEqua, orderedMov, orderedMovEqua, orderedTempo,
                 reversedComp, reversedCompEqua, reversedMov, reversedMovEqua, reversedTempo,
                 randomComp, randomCompEqua, randomMov, randomMovEqua, randomTempo);

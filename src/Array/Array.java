@@ -97,11 +97,11 @@ public class Array {
     }
 
     public void insertion_sort() {
-        int pos = 0, i = 1, aux;
+        int pos, i = 1, aux;
         while (i < TL) {
             aux = array[i];
             pos = i;
-            while(array[pos] > array[pos-1]) {
+            while(array[pos] < array[pos-1]) {
                 array[pos] = array[pos-1];
                 pos--;
             }
@@ -421,7 +421,7 @@ public class Array {
     }
 
     public void partition(int [] a1, int [] a2){
-        int tam = TL/2, k = 0;
+        int tam = TL/2;
         for(int i = 0; i < tam; i++){
             a1[i] = array[i];
             a2[i] = array[i + tam];

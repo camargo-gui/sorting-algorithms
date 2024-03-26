@@ -67,22 +67,22 @@ public class File {
 
     public void buildOrderedFile(){
         truncate(0);
-        for(int i = 0; i<1024; i++){
-            insertAtEnd(new Record(i, "Teste", 0));
+        for(int i = 0; i<10; i++){
+            insertAtEnd(new Record(i));
         }
     }
 
     public void buildReversedFile(){
         truncate(0);
-        for(int i = 1024; i>0; i--){
-            insertAtEnd(new Record(i, "Teste", 0));
+        for(int i = 10; i>0; i--){
+            insertAtEnd(new Record(i));
         }
     }
 
     public void buildRandomFile(){
         truncate(0);
-        for(int i = 0; i<1024; i++){
-            insertAtEnd(new Record(new Random().nextInt(1024), "Teste", 0));
+        for(int i = 0; i<10; i++){
+            insertAtEnd(new Record(new Random().nextInt(1024)));
         }
     }
 
@@ -113,7 +113,7 @@ public class File {
         i = 0;
         while (!this.eof())
         {
-            System.out.println("Pos " + i);
+            System.out.print("Pos " + i);
             aux.read(file);
             aux.print();
             i++;
@@ -170,6 +170,7 @@ public class File {
         Record reg = new Record();
         int start = 0, half = end/2;
         seekFile(half);
+        mov++;
         reg.read(file);
         comp++;
         while(start < end && reg.getcod() != info){
@@ -183,6 +184,7 @@ public class File {
             }
             half = (start+end)/2;
             seekFile(half);
+            mov++;
             reg.read(file);
             comp++;
         }
@@ -194,50 +196,48 @@ public class File {
     }
 
     public void binary_insertion_sort(){
-        Record rec1 = new Record(), rec2 = new Record();
+        Record rec = new Record(), aux = new Record();
         int i = 1, tam = filesize(), j, pos;
         while(i < tam){
             seekFile(i);
-            rec1.read(file);
-            pos = binary_search(rec1.getcod(), i - 1);
+            aux.read(file);
+            pos = binary_search(aux.getcod(), i - 1);
             j = i;
             while(j > pos){
                 seekFile(j-1);
-                rec1.read(file);
-                rec2.read(file);
-                seekFile(j-1);
-                rec2.write(file);
-                rec1.write(file);
+                rec.read(file);
+                rec.write(file);
                 j--;
                 mov+=2;
             }
+            seekFile(j);
+            aux.write(file);
             i++;
         }
     }
 
 
     public void insertion_sort(){
-        Record rec1 = new Record(), rec2 = new Record();
-        boolean change;
+        Record rec = new Record(), aux = new Record();
         int i = 1, j, tam = filesize();
         while(i < tam){
-            change = true;
             j = i;
-            while(j > 0 && change){
-                change = false;
-                seekFile(j-1);
-                rec1.read(file);
-                rec2.read(file);
+            seekFile(j);
+            aux.read(file);
+            seekFile(j-1);
+            rec.read(file);
+            while(j > 0 && rec.getcod() > aux.getcod()){
                 comp++;
-                if(rec1.getcod() > rec2.getcod()){
-                    seekFile(j-1);
-                    rec2.write(file);
-                    rec1.write(file);
-                    change = true;
-                    mov+=2;
-                }
+                seekFile(j);
+                rec.write(file);
                 j--;
+                if(j > 0){
+                    seekFile(j-1);
+                    rec.read(file);
+                }
             }
+            seekFile(j);
+            aux.write(file);
             i ++;
         }
     }
@@ -248,10 +248,12 @@ public class File {
         while(pos < length - 1){
             posMinor = pos;
             seekFile(posMinor);
+            mov++;
             minor.read(file);
             i = pos + 1;
             while(i < length){
                 seekFile(i);
+                mov++;
                 rec.read(file);
                 comp++;
                 if(rec.getcod() < minor.getcod()){
@@ -267,7 +269,7 @@ public class File {
             seekFile(posMinor);
             rec.write(file);
             pos++;
-            mov+=2;
+            mov+=4;
         }
     }
 
@@ -281,6 +283,7 @@ public class File {
                 seekFile(i);
                 rec1.read(file);
                 rec2.read(file);
+                mov+=2;
                 comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(i);
@@ -336,92 +339,137 @@ public class File {
     }
 
     public void couting_sort(){
-        int major = 0, tam = filesize(), pos;
-        File aux = new File("aux.dat");
-        Record rec = new Record();
-        seekFile(0);
-        while(!eof()){
+        File count = new File("count.dat"), sorted = new File("sorted.dat");
+        count.truncate(0); sorted.truncate(0);
+        int length = filesize(), major = 0;
+        Record rec = new Record(), rec2 = new Record();
+
+        for(int i = 0; i < length; i++){
+            seekFile(i);
             rec.read(file);
-            comp++;
-            if(rec.getcod() > major){
+            if (rec.getcod() > major){
                 major = rec.getcod();
             }
         }
 
-        int []  B = new int[major+1];
+        for (int i = 0; i < major + 1; i++){
+            count.seekFile(i);
+            rec.setcod(0);
+            rec.write(count.file);
+        }
+
+        //count
+        for (int i = 0; i < length; i ++) {
+            seekFile(i);
+            rec.read(file);
+            count.seekFile(rec.getcod());
+            rec2.read(count.file);
+            rec2.setcod(rec2.getcod() + 1);
+            count.seekFile(rec.getcod());
+            rec2.write(count.file);
+        }
+
+        //acumulative
+        int acumulative = 0;
+        for (int i = 0; i < major + 1; i++){
+            count.seekFile(i);
+            rec.read(count.file);
+            acumulative += rec.getcod();
+            count.seekFile(i);
+            rec.setcod(acumulative);
+            rec.write(count.file);
+        }
+
+        int pos;
+        for(int i = length - 1; i >= 0; i --){
+            seekFile(i);
+            rec.read(file);
+            count.seekFile(rec.getcod());
+            rec2.read(count.file);
+            pos = rec2.getcod();
+            rec2.setcod(rec2.getcod() - 1);
+            count.seekFile(rec.getcod());
+            rec2.write(count.file);
+            sorted.seekFile(pos - 1);
+            rec.write(sorted.file);
+        }
 
         seekFile(0);
-        while(!eof()){
-            rec.read(file);
-            B[rec.getcod()] += 1;
-        }
-
-        for(int i=1; i<major; i++){
-            B[i] += B[i-1];
-        }
-
-        for(int i = tam; i>=0; i--){
-            seekFile(i);
-            rec.read(file);
-            pos = B[rec.getcod()];
-            B[rec.getcod()] -= 1;
-            aux.seekFile(pos-1);
-            rec.write(aux.file);
-            mov++;
-        }
-
-        for(int i = 0; i < filesize(); i++){
-            aux.seekFile(i);
-            seekFile(i);
-            rec.read(aux.file);
+        sorted.seekFile(0);
+        while(!sorted.eof()){
+            rec.read(sorted.file);
             rec.write(file);
-            mov++;
         }
+
     }
 
     public void couting_sort(int radix){
-        int major = 0, tam = filesize(), pos;
-        File aux = new File("aux.dat");
-        Record rec = new Record();
-        seekFile(0);
-        while(!eof()){
+        File count = new File("count.dat"), sorted = new File("sorted.dat");
+        count.truncate(0); sorted.truncate(0);
+        int length = filesize(), major = 0;
+        Record rec = new Record(), rec2 = new Record();
+
+        for(int i = 0; i < length; i++){
+            seekFile(i);
             rec.read(file);
-            comp++;
-            if(getDigit(rec.getcod(),radix) > major){
-                major = getDigit(rec.getcod(),radix);
+            if (getDigit(rec.getcod(), radix) > major){
+                major = getDigit(rec.getcod(), radix);
             }
         }
 
-        int []  B = new int[major+1];
+        for (int i = 0; i < major + 1; i++){
+            count.seekFile(i);
+            rec.setcod(0);
+            rec.write(count.file);
+        }
+
+        //count
+        for (int i = 0; i < length; i ++) {
+            seekFile(i);
+            rec.read(file);
+            count.seekFile(getDigit(rec.getcod(), radix));
+            rec2.read(count.file);
+            rec2.setcod(rec2.getcod() + 1);
+            count.seekFile(getDigit(rec.getcod(), radix));
+            rec2.write(count.file);
+        }
+
+        //acumulative
+        int acumulative = 0;
+        for (int i = 0; i < major + 1; i++){
+            count.seekFile(i);
+            rec.read(count.file);
+            acumulative += rec.getcod();
+            count.seekFile(i);
+            rec.setcod(acumulative);
+            rec.write(count.file);
+        }
+
+        int pos;
+        for(int i = length - 1; i >= 0; i --){
+            seekFile(i);
+            rec.read(file);
+            count.seekFile(getDigit(rec.getcod(), radix));
+            rec2.read(count.file);
+            pos = rec2.getcod();
+            rec2.setcod(rec2.getcod() - 1);
+            count.seekFile(getDigit(rec.getcod(), radix));
+            rec2.write(count.file);
+            sorted.seekFile(pos - 1);
+            rec.write(sorted.file);
+        }
+
 
         seekFile(0);
-        while(!eof()){
-            rec.read(file);
-            B[getDigit(rec.getcod(),radix)] += 1;
-        }
-
-        for(int i=1; i<=major; i++){
-            B[i] += B[i-1];
-        }
-
-        for(int i = tam; i>=0; i--){
-            seekFile(i);
-            rec.read(file);
-            pos = B[getDigit(rec.getcod(),radix)];
-            B[getDigit(rec.getcod(),radix)] -= 1;
-            aux.seekFile(pos-1);
-            rec.write(aux.file);
-            mov++;
-        }
-
-        for(int i = 0; i < filesize(); i++){
-            aux.seekFile(i);
-            seekFile(i);
-            rec.read(aux.file);
+        sorted.seekFile(0);
+        while(!sorted.eof()){
+            rec.read(sorted.file);
             rec.write(file);
-            mov++;
         }
+
     }
+
+
 
     public void radix_sort(int maxLength){
         for(int i = 0; i<maxLength; i++){
@@ -488,7 +536,8 @@ public class File {
         File [] buckets = new File[n];
 
         for(i=0; i<n; i++){
-            buckets[i] = new File(i+".txt");
+            buckets[i] = new File(i+".dat");
+            buckets[i].truncate(0);
         }
 
         for(i=0; i<filesize(); i++){
@@ -871,6 +920,7 @@ public class File {
     public void merge_sort_second_implementation(){
         int length = filesize();
         File aux = new File("aux.dat");
+        aux.truncate(0);
         merge(aux, 0, length -1);
     }
 
