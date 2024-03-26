@@ -67,21 +67,21 @@ public class File {
 
     public void buildOrderedFile(){
         truncate(0);
-        for(int i = 0; i<10; i++){
+        for(int i = 0; i<4; i++){
             insertAtEnd(new Record(i));
         }
     }
 
     public void buildReversedFile(){
         truncate(0);
-        for(int i = 10; i>0; i--){
+        for(int i = 4; i>0; i--){
             insertAtEnd(new Record(i));
         }
     }
 
     public void buildRandomFile(){
         truncate(0);
-        for(int i = 0; i<10; i++){
+        for(int i = 0; i<4; i++){
             insertAtEnd(new Record(new Random().nextInt(1024)));
         }
     }
@@ -200,6 +200,7 @@ public class File {
         int i = 1, tam = filesize(), j, pos;
         while(i < tam){
             seekFile(i);
+            mov++;
             aux.read(file);
             pos = binary_search(aux.getcod(), i - 1);
             j = i;
@@ -223,21 +224,27 @@ public class File {
         while(i < tam){
             j = i;
             seekFile(j);
+            mov++;
             aux.read(file);
             seekFile(j-1);
+            mov++;
             rec.read(file);
+            comp++;
             while(j > 0 && rec.getcod() > aux.getcod()){
-                comp++;
                 seekFile(j);
                 rec.write(file);
+                mov++;
                 j--;
                 if(j > 0){
                     seekFile(j-1);
                     rec.read(file);
+                    mov++;
                 }
+                comp++;
             }
             seekFile(j);
             aux.write(file);
+            mov++;
             i ++;
         }
     }
@@ -304,7 +311,7 @@ public class File {
         boolean change = true;
         while(start < end && change){
             change = false;
-            for(pos = start; pos <= end; pos++){
+            for(pos = start; pos < end; pos++){
                 seekFile(pos);
                 rec1.read(file);
                 rec2.read(file);
@@ -320,7 +327,7 @@ public class File {
             end--;
             if(change){
                 change = false;
-                for(pos = end - 1; pos >= start; pos--){
+                for(pos = end - 1; pos > start; pos--){
                     seekFile(pos);
                     rec1.read(file);
                     rec2.read(file);
@@ -922,6 +929,50 @@ public class File {
         File aux = new File("aux.dat");
         aux.truncate(0);
         merge(aux, 0, length -1);
+    }
+
+    private void insertion_sort_for_tim(int start, int end){
+        Record rec = new Record(), aux = new Record();
+        int i = start + 1, j;
+        while (i <= end){
+            j = i;
+            seekFile(j);
+            rec.read(file);
+            seekFile(j - 1);
+            aux.read(file);
+            while(j > 0 && rec.getcod() < aux.getcod()){
+                seekFile(j);
+                aux.write(file);
+                mov++;
+                j--;
+                if (j > 0){
+                    seekFile(j - 1);
+                    aux.read(file);
+                    mov++;
+                }
+                comp++;
+            }
+            seekFile(j);
+            rec.write(file);
+            mov++;
+            i++;
+        }
+    }
+
+    public void tim_sort(){
+        int length = filesize(), run = 32;
+        File aux = new File("aux.dat");
+        for(int i = 0; i < length; i+=run){
+            insertion_sort_for_tim(i, Math.min(i + run - 1, length - 1));
+        }
+
+        for(int size = run; size < length; size = 2*size){
+            for(int left = 0; left < length; left += 2*size){
+                int mid = left + size - 1;
+                int right = Math.min((left + 2*size - 1), (length - 1));
+                fusion(aux, left, mid, mid + 1, right);
+            }
+        }
     }
 
 

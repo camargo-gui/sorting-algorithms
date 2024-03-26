@@ -9,7 +9,7 @@ public class Main {
 //        Table table = new Table();
 //        table.run();
 //        tests.ArrayTest();
-//        tests.ListTest();
-        tests.FileTest();
+        tests.ListTest();
+//        tests.FileTest();
     }
 }

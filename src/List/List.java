@@ -623,5 +623,40 @@ public class List {
         merge(aux, 0, length() - 1);
     }
 
+    public void insertion_sort_for_tim(Node start, Node end) {
+        int auxInfo;
+        Node pos, aux;
+        aux = start.getNext();
+        while (aux != null){
+            pos = aux;
+            auxInfo = aux.getInfo();
+            while (pos.getPrev() != null && pos.getPrev().getInfo() > auxInfo){
+                pos.setInfo(pos.getPrev().getInfo());
+                pos = pos.getPrev();
+            }
+            pos.setInfo(auxInfo);
+            aux = aux.getNext();
+        }
+    }
+
+    public void tim_sort(){
+        int run = 32, length = length();
+        Node start, end;
+        for(int i = 0; i < length; i += run){
+            start = getByPos(i);
+            end = getByPos(Math.min(i + run - 1, length - 1));
+            insertion_sort_for_tim(start, end);
+        }
+        for(int size = run; size < length; size = 2*size){
+            for(int left = 0; left < length; left += 2*size){
+                int mid = left + size - 1;
+                int right = Math.min((left + 2*size - 1), (length - 1));
+                fusion(new int[length], left, mid, mid+1, right);
+            }
+        }
+    }
+
+
+
 
 }

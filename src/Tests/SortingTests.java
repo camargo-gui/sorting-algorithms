@@ -12,12 +12,12 @@ public class SortingTests {
         System.out.println("---------> List: ");
         List list = new List();
         Random random = new Random();
-        for (int i = 16; i > 0; i = i - 1) {
+        for (int i = 1600; i > 0; i = i - 13) {
             list.insertAtEnd(random.nextInt(1000));
         }
         System.out.println("Gerado");
         list.print();
-        list.merge_sort_second_implementation();
+        list.tim_sort();
         System.out.println("Ordenado: ");
         list.print();
     }
@@ -46,7 +46,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.merge_sort_first_implementation();
+        file.tim_sort();
         file.showFile();
     }
 }

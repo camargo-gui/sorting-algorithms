@@ -885,9 +885,9 @@ public class Table {
         PrintWriter gravarArq = new PrintWriter(arq);
 
         gravarArq.printf("===============================================================================================================================================================================================================================================================================================%n");
-        gravarArq.printf("| %-17s \t| %-104s | %-104s | %-104s |%n", "Métodos Ordenação", "Arquivo Ordenado", "Arquivo em Ordem Reverso", "Arquivo Randômico");
+        gravarArq.printf("| %-17s \t| %-78s | %-78s | %-78s |%n", "Métodos Ordenação", "Arquivo Ordenado", "Arquivo em Ordem Reverso", "Arquivo Randômico");
         gravarArq.printf("===============================================================================================================================================================================================================================================================================================%n");
-        gravarArq.printf("\t %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s | %-17s | %-13s | %-12s | %-12s | %-12s | %-12s |%n",
+        gravarArq.printf("\t %-18s | %-13s | %-12s | %-12s | %-12s | %-16s | %-13s | %-12s | %-12s | %-12s | %-16s | %-13s | %-12s | %-12s | %-12s | %-12s |%n",
                 "", "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo",
                 "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo",
                 "Comp. Prog. *", "Comp. Equa. #", "Mov. Prog. +", "Mov. Equa. -", "Tempo");
