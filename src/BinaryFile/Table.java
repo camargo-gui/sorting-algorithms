@@ -859,10 +859,60 @@ public class Table {
 
         writeRow(table, "Merge Sort 2", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
 
+        //Tim Sort
+
+        System.out.println("Tim Sort");
+
+        System.out.println("Ordenado");
+        orderedFile.showFile();
+
+        //Ordered File
+        orderedFile.initComp();
+        orderedFile.initMov();
+        initialTime = System.currentTimeMillis();
+        orderedFile.tim_sort();
+        orderedTotalTime = (int) (System.currentTimeMillis() - initialTime) / 1000;
+        orderedComp = orderedFile.getComp();
+        orderedMov = orderedFile.getMov();
+
+        System.out.println("Resultado");
+        orderedFile.showFile();
+
+        System.out.println("Reverso");
+        //Reversed File
+        reversedFile.copy(reversedCopy);
+        reversedCopy.showFile();
+        reversedCopy.initComp();
+        reversedCopy.initMov();
+        initialTime = System.currentTimeMillis();
+        reversedCopy.tim_sort();
+        reversedTotalTime = (int) (System.currentTimeMillis() - initialTime) / 1000;
+        reversedComp = reversedCopy.getComp();
+        reversedMov = reversedCopy.getMov();
+
+        System.out.println("Resultado");
+        reversedCopy.showFile();
+
+        System.out.println("Aleatório");
+        //Random File
+        randomFile.copy(randomCopy);
+        randomCopy.showFile();
+        randomCopy.initComp();
+        randomCopy.initMov();
+        initialTime = System.currentTimeMillis();
+        randomCopy.tim_sort();
+        randomTotalTime = (int) (System.currentTimeMillis() - initialTime) / 1000;
+        randomComp = randomCopy.getComp();
+        randomMov = randomCopy.getMov();
+
+        System.out.println("Resultado");
+        randomCopy.showFile();
+
+        writeRow(table, "Tim Sort", orderedComp, reversedComp, randomComp, orderedMov, reversedMov, randomMov, orderedTotalTime, reversedTotalTime, randomTotalTime, 0, 0, 0, 0, 0, 0);
+
         table.close();
 
         System.out.println((System.currentTimeMillis() - generalTime)/1000 + " segundos");
-
 
     }
 

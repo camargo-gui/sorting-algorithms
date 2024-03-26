@@ -67,21 +67,21 @@ public class File {
 
     public void buildOrderedFile(){
         truncate(0);
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i<100; i++){
             insertAtEnd(new Record(i));
         }
     }
 
     public void buildReversedFile(){
         truncate(0);
-        for(int i = 4; i>0; i--){
+        for(int i = 100; i>0; i--){
             insertAtEnd(new Record(i));
         }
     }
 
     public void buildRandomFile(){
         truncate(0);
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i<100; i++){
             insertAtEnd(new Record(new Random().nextInt(1024)));
         }
     }
@@ -178,8 +178,7 @@ public class File {
             if(reg.getcod() < info){
                 start = half + 1;
             }
-            comp++;
-            if(reg.getcod() > info){
+            else {
                 end = half - 1;
             }
             half = (start+end)/2;
@@ -224,10 +223,8 @@ public class File {
         while(i < tam){
             j = i;
             seekFile(j);
-            mov++;
             aux.read(file);
             seekFile(j-1);
-            mov++;
             rec.read(file);
             comp++;
             while(j > 0 && rec.getcod() > aux.getcod()){
@@ -282,21 +279,17 @@ public class File {
 
     public void bubble_sort(){
         Record rec1 = new Record(), rec2 = new Record();
-        boolean change = true;
         int tam = filesize();
-        while(tam > 1 && change){
-            change = false;
+        while(tam > 1){
             for(int i = 0; i < tam - 1; i++){
                 seekFile(i);
                 rec1.read(file);
                 rec2.read(file);
-                mov+=2;
                 comp++;
                 if(rec1.getcod() > rec2.getcod()){
                     seekFile(i);
                     rec2.write(file);
                     rec1.write(file);
-                    change = true;
                     mov+=2;
                 }
             }
@@ -308,9 +301,7 @@ public class File {
     public void shake_sort(){
         Record rec1 = new Record(), rec2 = new Record();
         int start = 0, end = filesize() - 1, pos;
-        boolean change = true;
-        while(start < end && change){
-            change = false;
+        while(start < end){
             for(pos = start; pos < end; pos++){
                 seekFile(pos);
                 rec1.read(file);
@@ -320,25 +311,20 @@ public class File {
                     seekFile(pos);
                     rec2.write(file);
                     rec1.write(file);
-                    change = true;
                     mov+=2;
                 }
             }
             end--;
-            if(change){
-                change = false;
-                for(pos = end - 1; pos > start; pos--){
+            for(pos = end - 1; pos > start; pos--){
+                seekFile(pos);
+                rec1.read(file);
+                rec2.read(file);
+                comp++;
+                if(rec1.getcod() > rec2.getcod()){
                     seekFile(pos);
-                    rec1.read(file);
-                    rec2.read(file);
-                    comp++;
-                    if(rec1.getcod() > rec2.getcod()){
-                        seekFile(pos);
-                        rec2.write(file);
-                        rec1.write(file);
-                        change = true;
-                        mov+=2;
-                    }
+                    rec2.write(file);
+                    rec1.write(file);
+                    mov+=2;
                 }
             }
             start++;
@@ -876,6 +862,8 @@ public class File {
             seekFile(start2);
             rec2.read(file);
 
+            mov+=2;
+
             comp++;
             if(rec1.getcod() < rec2.getcod()){
                 rec1.write(aux.file);
@@ -940,6 +928,7 @@ public class File {
             rec.read(file);
             seekFile(j - 1);
             aux.read(file);
+            comp++;
             while(j > 0 && rec.getcod() < aux.getcod()){
                 seekFile(j);
                 aux.write(file);
