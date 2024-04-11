@@ -2,6 +2,7 @@ package Array;
 
 import List.Node;
 import List.List;
+import Stack.Stack;
 
 import javax.swing.text.GapContent;
 
@@ -276,7 +277,7 @@ public class Array {
         }
 
         for (i=0;i<TL;i++){
-            index = ((array[i]-min())*(n-1))/(max-min);
+            index = ((array[i]-min)*(n-1))/(max-min);
             buckets[index].insertAtEnd(array[i]);
         }
 
@@ -360,7 +361,7 @@ public class Array {
     }
 
     public void quick_sort(){
-        quick_sort_cp(0, TL-1);
+        quick_sort_sp(0, TL-1);
     }
 
     public void quick_sort_sp(int start, int end){
@@ -497,6 +498,104 @@ public class Array {
     public void merge_second_implementation(){
         int [] aux = new int[TL];
         merge(aux, 0, TL -1);
+    }
+
+
+    public void iterativeQuickSortSP(){
+        int i, j, aux, auxStart, auxEnd;
+        Stack start = new Stack(), end = new Stack();
+        start.push(0);
+        end.push(TL - 1);
+        while (!start.isEmpty()){
+            auxStart = i = start.pop();
+            auxEnd = j = end.pop();
+
+            while (i < j){
+                while(i < j && array[i] <= array[j]){
+                    i++;
+                }
+
+                aux = array[i];
+                array[i] = array[j];
+                array[j] = aux;
+
+                while(i < j && array[i] <= array[j]){
+                    j--;
+                }
+
+                aux = array[i];
+                array[i] = array[j];
+                array[j] = aux;
+            }
+
+            if(auxStart < i-1){
+                start.push(auxStart);
+                end.push(i-1);
+            }
+
+            if(auxEnd > j+1){
+                start.push(j+1);
+                end.push(auxEnd);
+            }
+        }
+    }
+
+    public void iterativeQuickSortCP(){
+        int auxStart, auxEnd, i, j, pivot, aux;
+        Stack start = new Stack(), end = new Stack();
+        start.push(0);
+        end.push(TL - 1);
+        while(!start.isEmpty()){
+            auxStart = i = start.pop();
+            auxEnd = j = end.pop();
+            pivot = array[(auxStart+auxEnd)/2];
+
+            while(i < j){
+
+                while(array[i] < pivot){
+                    i++;
+                }
+
+                while(array[j] > pivot){
+                    j--;
+                }
+
+                if(i <= j){
+                    aux = array[i];
+                    array[i] = array[j];
+                    array[j] = aux;
+                    i++;
+                    j--;
+                }
+            }
+
+            if(auxStart < j){
+                start.push(auxStart);
+                end.push(j);
+            }
+
+            if(i < auxEnd){
+                start.push(i);
+                end.push(auxEnd);
+            }
+        }
+    }
+
+    public void iterative_merge_second_implementation(){
+        int [] aux = new int[TL];
+        int left, right, block = 1, half;
+
+        while(block < TL){
+            left = 0;
+            while(left + block < TL){
+                right = left + 2 * block - 1;
+                if (right >= TL) right = TL - 1;
+                half = left + block;
+                fusion(aux, left, half - 1, half, right);
+                left = left + block * 2;
+            }
+            block *= 2;
+        }
     }
 
 }

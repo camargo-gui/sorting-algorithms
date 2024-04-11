@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class Record {
-        public final int tf=1022;
+        public final int tf=510;
         private int cod;
         private char trash[] = new char[tf];
 
@@ -58,7 +58,7 @@ public class Record {
         }
 
         static int length() {
-            return (2048);
+            return (1024);
         //int numero; 4 bytes
         //char lixo[] = new char[tf]; 2044 bytes
         //--------------------------------------

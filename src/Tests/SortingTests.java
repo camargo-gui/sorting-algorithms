@@ -25,13 +25,21 @@ public class SortingTests {
     public void ArrayTest () {
         System.out.println("---------> Array: ");
         Array array = new Array();
-        for (int i = 160; i > 0; i = i - 3) {
-            array.add(i);
+        for (int i = 0; i < 64; i++) {
+            array.add(new Random().nextInt(160));
         }
+//        array.add(2);
+//        array.add(5);
+//        array.add(1);
+//        array.add(9);
+//        array.add(3);
+//        array.add(7);
+//        array.add(4);
+//        array.add(6);
         System.out.println("Gerado: ");
         array.print();
         System.out.println("Ordenado: ");
-        array.insertion_sort();
+        array.iterative_merge_second_implementation();
         array.print();
     }
 
@@ -46,7 +54,7 @@ public class SortingTests {
         System.out.println("Gerado: ");
         file.showFile();
         System.out.println("Ordenado: ");
-        file.tim_sort();
+        file.HeapSortAlternativo();
         file.showFile();
     }
 }
